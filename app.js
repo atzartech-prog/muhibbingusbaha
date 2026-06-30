@@ -504,6 +504,8 @@ function setupPwa() {
   const pwaInstruction = document.getElementById("pwaInstruction");
   const pwaInstallActionBtn = document.getElementById("pwaInstallActionBtn");
   const pwaDismissBtn = document.getElementById("pwaDismissBtn");
+  const pwaInstallHelpModal = document.getElementById("pwaInstallHelpModal");
+  const closeInstallHelpBtn = document.getElementById("closeInstallHelpBtn");
 
   // Cek apakah aplikasi sudah berjalan dalam mode standalone PWA
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
@@ -511,6 +513,7 @@ function setupPwa() {
   
   if (isStandalone) {
     console.log("App is running in standalone PWA mode");
+    if (installPwaBtn) installPwaBtn.style.display = 'none';
     return;
   }
 
@@ -534,18 +537,48 @@ function setupPwa() {
     e.preventDefault();
     deferredPrompt = e;
     
-    // Tampilkan tombol instal di header
-    if (installPwaBtn) {
-      installPwaBtn.style.display = 'inline-flex';
-      if (window.lucide) lucide.createIcons();
-    }
-
     // Tampilkan banner di bagian bawah jika belum di-dismiss
     if (pwaBanner && !isDismissed) {
       pwaBanner.style.display = "block";
       setTimeout(() => pwaBanner.classList.add("show"), 100);
     }
   });
+
+  // Tombol "Pasang App" di header klik handler
+  if (installPwaBtn) {
+    installPwaBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`PWA Install Header Outcome: ${outcome}`);
+        deferredPrompt = null;
+        installPwaBtn.style.display = 'none';
+        if (pwaBanner) {
+          pwaBanner.classList.remove("show");
+          setTimeout(() => pwaBanner.style.display = "none", 300);
+        }
+      } else {
+        // Jika browser tidak mendukung auto-prompt (iOS, Firefox, dll), tampilkan modal panduan manual
+        if (pwaInstallHelpModal) {
+          pwaInstallHelpModal.classList.add("open");
+        }
+      }
+    });
+  }
+
+  // Aksi menutup modal panduan
+  if (closeInstallHelpBtn && pwaInstallHelpModal) {
+    closeInstallHelpBtn.addEventListener('click', () => {
+      pwaInstallHelpModal.classList.remove("open");
+    });
+  }
+  if (pwaInstallHelpModal) {
+    pwaInstallHelpModal.addEventListener('click', (e) => {
+      if (e.target === pwaInstallHelpModal) {
+        pwaInstallHelpModal.classList.remove("open");
+      }
+    });
+  }
 
   // Aksi instalasi pada banner bawah
   if (pwaInstallActionBtn) {

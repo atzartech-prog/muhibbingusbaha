@@ -867,3 +867,61 @@ body {
         justify-content: flex-end;
     }
 }
+
+/* PWA Installation Steps in Help Modal */
+.install-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    margin-top: 0.5rem;
+}
+
+.install-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+}
+
+.step-num {
+    background: var(--clr-gold);
+    color: var(--bg-deepest);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+}
+
+.step-details {
+    flex: 1;
+}
+
+.step-details strong {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 0.15rem;
+}
+
+.step-details p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* Responsive header actions adjustments */
+@media (max-width: 480px) {
+    .header-actions {
+        gap: 0.35rem;
+    }
+    .action-btn span {
+        display: none; /* Hide button text on extra small mobile screens to keep them in one row */
+    }
+}

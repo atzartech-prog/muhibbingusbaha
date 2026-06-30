@@ -49,9 +49,9 @@
                     <i data-lucide="plus-circle"></i>
                     <span>Tambah Link</span>
                 </button>
-                <button class="action-btn install-btn" id="installPwaBtn" style="display: none;" title="Instal PWA">
+                <button class="action-btn install-btn" id="installPwaBtn" title="Instal PWA">
                     <i data-lucide="download"></i>
-                    <span>Instal App</span>
+                    <span>Pasang App</span>
                 </button>
             </div>
         </header>
@@ -115,6 +115,44 @@
                         </div>
                         <button type="submit" class="submit-btn">Simpan Tautan</button>
                     </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- PWA Install Help Modal -->
+        <div class="modal" id="pwaInstallHelpModal" role="dialog" aria-modal="true" aria-labelledby="installHelpTitle">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="installHelpTitle"><i data-lucide="download"></i> Panduan Pasang Aplikasi</h2>
+                    <button class="close-btn" id="closeInstallHelpBtn" aria-label="Tutup"><i data-lucide="x"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-tip">
+                        Aplikasi ini mendukung instalasi PWA. Anda dapat menambahkannya ke Layar Utama HP atau desktop agar berjalan lancar seperti aplikasi native.
+                    </div>
+                    <div class="install-steps">
+                        <div class="install-step">
+                            <span class="step-num">1</span>
+                            <div class="step-details">
+                                <strong>Android & Chrome (Otomatis):</strong>
+                                <p>Klik tombol menu browser (titik tiga) di pojok kanan atas, lalu pilih opsi <strong>"Instal Aplikasi"</strong> atau <strong>"Tambahkan ke Layar Utama"</strong>.</p>
+                            </div>
+                        </div>
+                        <div class="install-step">
+                            <span class="step-num">2</span>
+                            <div class="step-details">
+                                <strong>iOS / iPhone (Safari Manual):</strong>
+                                <p>Klik tombol <strong>Bagikan / Share</strong> <i data-lucide="share" style="width:14px;height:14px;vertical-align:middle;color:var(--clr-gold);"></i> di bagian bawah Safari, lalu pilih opsi <strong>"Tambahkan ke Layar Utama"</strong>.</p>
+                            </div>
+                        </div>
+                        <div class="install-step">
+                            <span class="step-num">3</span>
+                            <div class="step-details">
+                                <strong>Desktop & Laptop (Chrome/Edge):</strong>
+                                <p>Klik ikon **Instal** <i data-lucide="monitor" style="width:14px;height:14px;vertical-align:middle;"></i> di bilah alamat browser bagian atas kanan untuk memasang aplikasi ke komputer.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
