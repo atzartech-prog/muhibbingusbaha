@@ -7,58 +7,58 @@
 // 1. DATASET DEFAULTS (Pengajian Resmi LP3IA)
 const DEFAULT_VIDEOS = [
     {
-        id: "X8vB4zO_B_Y",
-        title: "Tafsir Jalalain: Hakikat Bersyukur dalam Keadaan Sempit",
+        id: "lo_Fedw62vE",
+        title: "Tafsir Jalalain: Kenapa Banyak Orang Tidak Bahagia?",
         channel: "Official LP3IA",
         duration: "34:52",
         category: "Tafsir Jalalain",
-        description: "Kajian mendalam Kitab Tafsir Jalalain bersama Gus Baha mengenai cara-cara para Nabi menyikapi cobaan dan menghadirkan rasa syukur.",
-        thumbnail: "https://img.youtube.com/vi/X8vB4zO_B_Y/hqdefault.jpg"
+        description: "Kajian mendalam Kitab Tafsir Jalalain bersama Gus Baha mengenai cara-cara menyikapi cobaan dan menghadirkan rasa syukur agar hidup selalu bahagia.",
+        thumbnail: "https://img.youtube.com/vi/lo_Fedw62vE/hqdefault.jpg"
     },
     {
-        id: "n4P_T9e_5fM",
-        title: "Kitab Hikam: Rahasia Keikhlasan dan Ma'rifatullah",
+        id: "GVVauLw8fD0",
+        title: "Kitab Hikam: Konsep Rida terhadap Takdir Allah",
         channel: "Official LP3IA",
         duration: "42:15",
         category: "Kitab Hikam",
-        description: "Penjelasan untaian hikmah dari Kitab Al-Hikam karya Ibnu Athaillah As-Sakandari mengenai maqam ikhlas dan mendekatkan diri kepada Allah.",
-        thumbnail: "https://img.youtube.com/vi/n4P_T9e_5fM/hqdefault.jpg"
+        description: "Penjelasan untaian hikmah dari Kitab Al-Hikam karya Ibnu Athaillah As-Sakandari mengenai konsep rida terhadap seluruh ketetapan takdir Allah.",
+        thumbnail: "https://img.youtube.com/vi/GVVauLw8fD0/hqdefault.jpg"
     },
     {
-        id: "5XyC2FvP5Gk",
-        title: "Hikmah & Fiqih: Solusi Syariat Menghadapi Masalah Ekonomi",
+        id: "81Bn_KrA3WI",
+        title: "Hikmah & Fiqih: Cara Menyikapi Perbedaan Pandangan Fiqih",
         channel: "Official LP3IA",
         duration: "28:10",
         category: "Hikmah & Fiqih",
-        description: "Pandangan fiqih yang luwes dan logis khas Gus Baha dalam mengurai problematika ekonomi rumah tangga di era modern sesuai syariat.",
-        thumbnail: "https://img.youtube.com/vi/5XyC2FvP5Gk/hqdefault.jpg"
+        description: "Pandangan fiqih yang luwes dan logis khas Gus Baha dalam mengurai problematika fiqih sehari-hari dan bagaimana menyikapi perbedaan pandangan.",
+        thumbnail: "https://img.youtube.com/vi/81Bn_KrA3WI/hqdefault.jpg"
     },
     {
-        id: "wJpxeXpGfSg",
-        title: "Umum: Cara Mengaji Secara Benar Agar Tidak Tersesat",
+        id: "m6yAZ4iEMpg",
+        title: "Umum: Beragama Secara Simpel dan Santai",
         channel: "Official LP3IA",
         duration: "25:40",
         category: "Umum",
-        description: "Pentingnya sanad keilmuan dan bagaimana menyikapi perbedaan mazhab dengan hati yang lapang sesuai tuntunan ulama salaf.",
-        thumbnail: "https://img.youtube.com/vi/wJpxeXpGfSg/hqdefault.jpg"
+        description: "Pentingnya beragama dengan cara yang menyenangkan, tidak mempersulit umat, serta bersikap moderat dalam berdakwah.",
+        thumbnail: "https://img.youtube.com/vi/m6yAZ4iEMpg/hqdefault.jpg"
     },
     {
-        id: "z-Fm9pWbL_E",
-        title: "Tafsir Jalalain: Pembahasan Tafsir Surah Al-Kahfi",
+        id: "4Qiiv22YlLs",
+        title: "Tafsir Jalalain: Tafsir Ayat-Ayat Syukur dan Sabar",
         channel: "Official LP3IA",
         duration: "51:04",
         category: "Tafsir Jalalain",
-        description: "Kajian surah Al-Kahfi, kisah Ashabul Kahfi, dan hikmah tersembunyi di balik bertemunya Nabi Musa as dan Nabi Khidir as.",
-        thumbnail: "https://img.youtube.com/vi/z-Fm9pWbL_E/hqdefault.jpg"
+        description: "Kajian tafsir surah-surah Al-Qur'an, menelusuri bagaimana Allah menggambarkan karakter hamba yang sabar dan pandai bersyukur.",
+        thumbnail: "https://img.youtube.com/vi/4Qiiv22YlLs/hqdefault.jpg"
     },
     {
-        id: "9i4q0D0i2fI",
-        title: "Kitab Hikam: Pentingnya Menghormati Manusia & Sesama",
+        id: "zBu_4PofhBI",
+        title: "Kitab Hikam: Hakikat Rezeki dan Keberkahan Hidup",
         channel: "Official LP3IA",
         duration: "36:18",
         category: "Kitab Hikam",
-        description: "Menghilangkan kesombongan rohani (kibr) dan memahami bahwa rahmat Allah sangat luas, mencakup seluruh makhluk.",
-        thumbnail: "https://img.youtube.com/vi/9i4q0D0i2fI/hqdefault.jpg"
+        description: "Menjelaskan esensi rezeki menurut kacamata tasawuf, di mana rezeki batiniah berupa ketenangan hati jauh lebih utama dibanding materi semata.",
+        thumbnail: "https://img.youtube.com/vi/zBu_4PofhBI/hqdefault.jpg"
     }
 ];
 
@@ -153,12 +153,37 @@ function initPlayer() {
     });
 }
 
-function onPlayerReady(event) {
-    isPlayerReady = true;
+function hidePlayerOverlay() {
     if (playerOverlay) {
         playerOverlay.style.opacity = '0';
-        setTimeout(() => playerOverlay.style.display = 'none', 500);
+        setTimeout(() => {
+            playerOverlay.style.display = 'none';
+            // Restore default loading spinner structure for next track loads
+            playerOverlay.innerHTML = `
+                <div class="spinner"></div>
+                <p>Menyiapkan Aliran Video...</p>
+            `;
+        }, 500);
     }
+}
+
+function showPlayerError(message) {
+    if (playerOverlay) {
+        playerOverlay.style.display = 'flex';
+        playerOverlay.style.opacity = '1';
+        playerOverlay.innerHTML = `
+            <i data-lucide="alert-triangle" style="width: 48px; height: 48px; color: var(--clr-gold);"></i>
+            <p style="text-align: center; padding: 0 1rem; margin-top: 10px; font-weight: 600;">${message}</p>
+        `;
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    }
+}
+
+function onPlayerReady(event) {
+    isPlayerReady = true;
+    hidePlayerOverlay();
     
     // Set volume default
     ytPlayer.setVolume(volumeBar.value);
@@ -170,12 +195,10 @@ function onPlayerReady(event) {
 }
 
 function onPlayerStateChange(event) {
-    // event.data mewakili status pemutar:
-    // YT.PlayerState.PLAYING (1), YT.PlayerState.PAUSED (2), YT.PlayerState.ENDED (0), YT.PlayerState.BUFFERING (3)
-    
     const audioScreen = document.getElementById("audioContainer");
     
     if (event.data === YT.PlayerState.PLAYING) {
+        hidePlayerOverlay();
         playIcon.setAttribute("data-lucide", "pause");
         lucide.createIcons();
         
@@ -199,7 +222,15 @@ function onPlayerStateChange(event) {
 
 function onPlayerError(event) {
     console.error("YouTube Player Error:", event.data);
-    alert("Gagal memuat video YouTube. Pastikan koneksi internet aktif dan tautan video valid.");
+    let errorMsg = "Gagal memuat video YouTube. Pastikan koneksi internet aktif.";
+    if (event.data === 101 || event.data === 150) {
+        errorMsg = "Pemilik video melarang pemutaran di luar YouTube (Embedding dinonaktifkan).";
+    } else if (event.data === 100) {
+        errorMsg = "Video tidak ditemukan atau telah dihapus.";
+    } else if (event.data === 2) {
+        errorMsg = "Format ID Video YouTube tidak valid.";
+    }
+    showPlayerError(errorMsg);
 }
 
 // 3. LOGIKA PEMUTAR & SINKRONISASI
@@ -211,6 +242,12 @@ function playTrack(index) {
     
     currentVideoIndex = index;
     const track = playlist[currentVideoIndex];
+    
+    // Show loading overlay
+    if (playerOverlay) {
+        playerOverlay.style.display = 'flex';
+        playerOverlay.style.opacity = '1';
+    }
     
     // Load & mainkan video
     ytPlayer.loadVideoById(track.id);
