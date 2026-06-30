@@ -490,7 +490,7 @@ function setupEventListeners() {
   addVideoForm.addEventListener('submit', handleAddVideo);
 }
 
-// 7. PWA SERVICE WORKER
+// 7. PWA SERVICE WORKER & TOMBOL INSTALASI APLIKASI
 function setupPwa() {
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -500,26 +500,91 @@ function setupPwa() {
     });
   }
 
+  const pwaBanner = document.getElementById("pwaBanner");
+  const pwaInstruction = document.getElementById("pwaInstruction");
+  const pwaInstallActionBtn = document.getElementById("pwaInstallActionBtn");
+  const pwaDismissBtn = document.getElementById("pwaDismissBtn");
+
+  // Cek apakah aplikasi sudah berjalan dalam mode standalone PWA
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  const isDismissed = localStorage.getItem("gusbaha_pwa_dismissed") === "true";
+  
+  if (isStandalone) {
+    console.log("App is running in standalone PWA mode");
+    return;
+  }
+
+  // Deteksi perangkat iOS (Safari)
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+  if (isIOS && !isDismissed) {
+    if (pwaBanner && pwaInstruction && pwaInstallActionBtn) {
+      pwaBanner.style.display = "block";
+      setTimeout(() => pwaBanner.classList.add("show"), 100);
+      
+      pwaInstruction.innerHTML = 'Klik tombol bagikan <i data-lucide="share" style="width:14px;height:14px;vertical-align:middle;color:var(--clr-gold);"></i> lalu pilih <strong>"Tambahkan ke Layar Utama"</strong>.';
+      pwaInstallActionBtn.style.display = "none";
+      
+      if (window.lucide) lucide.createIcons();
+    }
+  }
+
   let deferredPrompt;
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
+    
+    // Tampilkan tombol instal di header
     if (installPwaBtn) {
       installPwaBtn.style.display = 'inline-flex';
       if (window.lucide) lucide.createIcons();
     }
+
+    // Tampilkan banner di bagian bawah jika belum di-dismiss
+    if (pwaBanner && !isDismissed) {
+      pwaBanner.style.display = "block";
+      setTimeout(() => pwaBanner.classList.add("show"), 100);
+    }
   });
 
-  if (installPwaBtn) {
-    installPwaBtn.addEventListener('click', async () => {
+  // Aksi instalasi pada banner bawah
+  if (pwaInstallActionBtn) {
+    pwaInstallActionBtn.addEventListener('click', async () => {
       if (!deferredPrompt) return;
+      
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
-      console.log(`PWA Outcome: ${outcome}`);
+      console.log(`PWA Prompt Outcome: ${outcome}`);
+      
       deferredPrompt = null;
-      installPwaBtn.style.display = 'none';
+      if (pwaBanner) {
+        pwaBanner.classList.remove("show");
+        setTimeout(() => pwaBanner.style.display = "none", 300);
+      }
+      if (installPwaBtn) installPwaBtn.style.display = 'none';
     });
   }
+
+  // Aksi abaikan banner bawah
+  if (pwaDismissBtn) {
+    pwaDismissBtn.addEventListener('click', () => {
+      if (pwaBanner) {
+        pwaBanner.classList.remove("show");
+        setTimeout(() => pwaBanner.style.display = "none", 300);
+      }
+      localStorage.setItem("gusbaha_pwa_dismissed", "true");
+    });
+  }
+
+  window.addEventListener('appinstalled', () => {
+    console.log('PWA installed successfully');
+    if (pwaBanner) {
+      pwaBanner.classList.remove("show");
+      setTimeout(() => pwaBanner.style.display = "none", 300);
+    }
+    if (installPwaBtn) installPwaBtn.style.display = 'none';
+    deferredPrompt = null;
+  });
 }
 
 // INIT

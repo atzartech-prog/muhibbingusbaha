@@ -670,3 +670,131 @@ body {
         display: none; /* hide preview on mobile to avoid clutter */
     }
 }
+
+/* PWA Install Banner styling */
+.pwa-banner {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(150px);
+    width: 90%;
+    max-width: 580px;
+    background: rgba(5, 26, 15, 0.95);
+    border: 1px solid var(--clr-gold);
+    border-radius: var(--radius-md);
+    padding: 0.9rem 1.25rem;
+    z-index: 1500;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(212, 175, 55, 0.25);
+    backdrop-filter: blur(12px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+    opacity: 0;
+}
+
+.pwa-banner.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.pwa-banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.pwa-banner-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    min-width: 250px;
+}
+
+.pwa-app-icon {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, var(--bg-dark), var(--clr-green-medium));
+    border: 1.5px solid var(--clr-gold);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.svg-logo-small {
+    width: 28px;
+    height: 28px;
+}
+
+.pwa-banner-text h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--clr-gold-light);
+}
+
+.pwa-banner-text p {
+    font-size: 0.76rem;
+    color: var(--text-secondary);
+    margin-top: 0.1rem;
+    line-height: 1.4;
+}
+
+.pwa-banner-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pwa-action-btn {
+    padding: 0.45rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    border: none;
+    outline: none;
+}
+
+.pwa-action-btn.primary {
+    background: linear-gradient(135deg, var(--clr-gold-dark), var(--clr-gold));
+    color: var(--bg-deepest);
+}
+
+.pwa-action-btn.primary:hover {
+    background: linear-gradient(135deg, var(--clr-gold), var(--clr-gold-light));
+}
+
+.pwa-action-btn.secondary {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-gold);
+    color: var(--text-secondary);
+}
+
+.pwa-action-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+@media (max-width: 576px) {
+    .pwa-banner {
+        bottom: 1rem;
+        padding: 0.8rem 1rem;
+        left: 5%;
+        right: 5%;
+        transform: translateY(150px);
+        width: 90%;
+    }
+    .pwa-banner.show {
+        transform: translateY(0);
+    }
+    .pwa-banner-content {
+        gap: 0.75rem;
+    }
+    .pwa-banner-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
