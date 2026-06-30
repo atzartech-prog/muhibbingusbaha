@@ -1,11 +1,7 @@
 /**
- * Muhibbin Gus Baha - Portal Galeri & Koleksi Tautan YouTube
- * ---------------------------------------------------------
- * Mengelola rendering kartu ceramah, pencarian, pengelompokan kategori,
- * sinkronisasi dinamis dari server, serta penambahan tautan lokal.
+ * Muhibbin Gus Baha - Portal Koleksi Tautan YouTube Sederhana
  */
 
-// 1. DATASET DEFAULTS (Sebagai cadangan jika berkas JSON gagal dimuat)
 const DEFAULT_VIDEOS = [
   {
     "id": "lo_Fedw62vE",
@@ -156,19 +152,13 @@ const DEFAULT_VIDEOS = [
 // STATE APLIKASI
 let playlist = [];
 let filteredPlaylist = [];
-let categoriesList = [];
 
 // DOM ELEMENTS
-const lecturesGrid = document.getElementById("lecturesGrid");
+const linksContainer = document.getElementById("linksContainer");
 const videoCountBadge = document.getElementById("videoCountBadge");
+const syncTimeBadge = document.getElementById("syncTimeBadge");
 const searchInput = document.getElementById("searchInput");
 const clearSearchBtn = document.getElementById("clearSearchBtn");
-const categoryTabs = document.getElementById("categoryTabs");
-
-// STATS DOM ELEMENTS
-const statTotalVids = document.getElementById("statTotalVids");
-const statTotalCats = document.getElementById("statTotalCats");
-const statLastUpdate = document.getElementById("statLastUpdate");
 
 // ACTIONS DOM ELEMENTS
 const syncBtn = document.getElementById("syncBtn");
@@ -180,58 +170,43 @@ const addVideoForm = document.getElementById("addVideoForm");
 const installPwaBtn = document.getElementById("installPwaBtn");
 const toastContainer = document.getElementById("toastContainer");
 
-// 2. INITIAL DATA LOADING & SERVER SYNC
+// 1. DATA INITIALIZER & SINKRONISASI
 async function loadInitialData(isSyncRequest = false) {
   if (isSyncRequest && syncIcon) {
     syncIcon.classList.add("rotating");
     syncBtn.disabled = true;
   }
 
-  // A. Muat data default bawaan
   let serverList = [];
   try {
-    // Tambahkan timestamp untuk menghindari caching peramban
     const response = await fetch(`./lectures.json?t=${new Date().getTime()}`);
     if (response.ok) {
       serverList = await response.json();
-      console.log("Data ceramah berhasil dimuat dari server:", serverList.length);
-      
-      // Update info sinkronisasi terakhir
-      const today = new Date();
-      const timeString = today.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + " WIB";
+      const timeString = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + " WIB";
       localStorage.setItem("gusbaha_last_sync", timeString);
-      statLastUpdate.textContent = timeString;
+      syncTimeBadge.textContent = "Sinkronisasi: " + timeString;
     } else {
-      throw new Error("Respon server bermasalah");
+      throw new Error();
     }
   } catch (error) {
-    console.warn("Gagal memuat lectures.json, menggunakan data cadangan.", error);
     serverList = [...DEFAULT_VIDEOS];
-    
-    // Set fallback time
-    if (!localStorage.getItem("gusbaha_last_sync")) {
-      statLastUpdate.textContent = "Offline (Lokal)";
-    } else {
-      statLastUpdate.textContent = localStorage.getItem("gusbaha_last_sync");
-    }
+    const lastSync = localStorage.getItem("gusbaha_last_sync");
+    syncTimeBadge.textContent = lastSync ? "Sinkronisasi: " + lastSync : "Basis data: Lokal";
   }
 
-  // B. Muat data kustom dari LocalStorage
+  // Muat data kustom lokal
   const customStored = localStorage.getItem("gusbaha_custom_videos");
   let customList = [];
   if (customStored) {
     try {
       customList = JSON.parse(customStored);
-    } catch (e) {
-      console.error("Gagal membaca data LocalStorage:", e);
-    }
+    } catch (e) {}
   }
 
-  // C. Gabungkan keduanya secara unik berdasarkan Video ID
+  // Gabungkan unik berdasarkan Video ID
   const allIds = new Set();
   playlist = [];
 
-  // Pertama masukkan item server
   serverList.forEach(vid => {
     if (!allIds.has(vid.id)) {
       allIds.add(vid.id);
@@ -239,7 +214,6 @@ async function loadInitialData(isSyncRequest = false) {
     }
   });
 
-  // Kedua masukkan item kustom
   customList.forEach(vid => {
     if (!allIds.has(vid.id)) {
       allIds.add(vid.id);
@@ -249,130 +223,134 @@ async function loadInitialData(isSyncRequest = false) {
 
   filteredPlaylist = [...playlist];
 
-  // D. Selesaikan UI state sinkronisasi
   if (isSyncRequest) {
     setTimeout(() => {
       if (syncIcon) syncIcon.classList.remove("rotating");
       syncBtn.disabled = false;
-      showToast("Koleksi Tautan Berhasil Diperbarui!");
+      showToast("Tautan berhasil diperbarui!");
     }, 800);
   }
 
-  // E. Hitung statistik & render
-  updateStats();
   applyFilters();
 }
 
-// UPDATE STATISTIK KOLEKSI
-function updateStats() {
-  statTotalVids.textContent = playlist.length;
-  
-  // Hitung jumlah kategori unik
-  const cats = new Set();
-  playlist.forEach(vid => cats.add(vid.category));
-  statTotalCats.textContent = cats.size;
-  
-  const lastSync = localStorage.getItem("gusbaha_last_sync");
-  if (lastSync) {
-    statLastUpdate.textContent = lastSync;
-  } else {
-    statLastUpdate.textContent = "Baru Saja";
-  }
-}
-
-// 3. RENDERING KARTU GALERI LECTURES
-function renderGallery() {
-  lecturesGrid.innerHTML = "";
+// 2. RENDERING LINK LIST GROUPED BY CATEGORY
+function renderLinkList() {
+  linksContainer.innerHTML = "";
   
   if (filteredPlaylist.length === 0) {
-    lecturesGrid.innerHTML = `
+    linksContainer.innerHTML = `
       <div class="empty-state">
-        <i data-lucide="info" style="width: 48px; height: 48px; color: var(--clr-gold); opacity: 0.7;"></i>
-        <p>Ceramah Gus Baha tidak ditemukan. Coba gunakan filter atau kata kunci pencarian lain.</p>
+        <i data-lucide="info" style="width: 36px; height: 36px; color: var(--clr-gold); opacity: 0.7; margin-bottom: 10px;"></i>
+        <p>Tidak ada link ceramah yang cocok.</p>
       </div>
     `;
-    videoCountBadge.textContent = "0 Video";
+    videoCountBadge.textContent = "0 Tautan";
     if (window.lucide) lucide.createIcons();
     return;
   }
   
-  videoCountBadge.textContent = `${filteredPlaylist.length} Video`;
+  videoCountBadge.textContent = `${filteredPlaylist.length} Tautan`;
   
+  // Kelompokkan data berdasarkan Kategori
+  const grouped = {};
   filteredPlaylist.forEach(video => {
-    const card = document.createElement("article");
-    card.className = "lecture-card";
+    const cat = video.category || "Umum";
+    if (!grouped[cat]) {
+      grouped[cat] = [];
+    }
+    grouped[cat].push(video);
+  });
+
+  // Tentukan urutan kategori agar konsisten
+  const categoriesOrder = ["Tafsir Al-Qur'an", "Kitab Tasawuf", "Fiqih & Hukum", "Ceramah Umum", "Kustom / Muhibbin"];
+  
+  // Ambil juga kategori dinamis yang di luar default
+  Object.keys(grouped).forEach(cat => {
+    if (!categoriesOrder.includes(cat)) {
+      categoriesOrder.push(cat);
+    }
+  });
+
+  // Render per Kategori
+  categoriesOrder.forEach(categoryName => {
+    const listVideos = grouped[categoryName];
+    if (!listVideos || listVideos.length === 0) return;
+
+    // A. Buat Header Kategori
+    const sectionElement = document.createElement("section");
+    sectionElement.className = "category-section";
     
-    // Tautan youtube orisinil
-    const youtubeUrl = `https://www.youtube.com/watch?v=${video.id}`;
-    
-    card.innerHTML = `
-      <div class="card-thumb">
-        <img src="${video.thumbnail}" alt="Thumbnail ${video.title}" loading="lazy">
-        <span class="duration-badge">${video.duration}</span>
-        <div class="play-overlay">
-          <div class="play-circle">
-            <i data-lucide="play" style="fill: var(--bg-deepest); stroke: none;"></i>
-          </div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-meta">
-          <span class="card-cat-badge">${video.category}</span>
-          <span class="card-channel">${video.channel}</span>
-        </div>
-        <h3 class="card-title">${video.title}</h3>
-        <p class="card-desc">${video.description}</p>
-        <div class="card-actions">
-          <a href="${youtubeUrl}" target="_blank" rel="noopener" class="listen-btn" title="Dengarkan di YouTube">
-            <i data-lucide="external-link"></i>
-            <span>Dengarkan</span>
-          </a>
-          <button class="share-btn" title="Salin Tautan Video">
-            <i data-lucide="copy"></i>
-            <span>Salin</span>
-          </button>
-        </div>
-      </div>
+    sectionElement.innerHTML = `
+      <h2 class="category-title">
+        <i data-lucide="folder" class="category-icon"></i>
+        <span>${categoryName}</span>
+        <span class="category-count">${listVideos.length}</span>
+      </h2>
+      <div class="links-list"></div>
     `;
-    
-    // Event listener untuk tombol "Salin"
-    const shareBtn = card.querySelector(".share-btn");
-    shareBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+
+    const listContainer = sectionElement.querySelector(".links-list");
+
+    // B. Masukkan baris link di dalamnya
+    listVideos.forEach(video => {
+      const youtubeUrl = `https://www.youtube.com/watch?v=${video.id}`;
+      const linkItem = document.createElement("div");
+      linkItem.className = "link-item";
       
-      navigator.clipboard.writeText(youtubeUrl).then(() => {
-        showToast("Tautan YouTube berhasil disalin!");
-      }).catch(err => {
-        // Fallback jika Clipboard API gagal
-        const tempInput = document.createElement("input");
-        tempInput.value = youtubeUrl;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        document.execCommand("copy");
-        document.body.removeChild(tempInput);
-        showToast("Tautan YouTube berhasil disalin!");
+      linkItem.innerHTML = `
+        <a href="${youtubeUrl}" target="_blank" rel="noopener" class="link-anchor" title="Buka di YouTube / Aplikasi">
+          <div class="link-left">
+            <span class="link-play-icon">
+              <i data-lucide="youtube"></i>
+            </span>
+            <div class="link-texts">
+              <h3 class="link-title">${video.title}</h3>
+              <div class="link-meta">
+                <span class="meta-channel">${video.channel}</span>
+                <span class="meta-dot">&bull;</span>
+                <span class="meta-duration">${video.duration}</span>
+                ${video.description ? `<span class="meta-dot">&bull;</span><span class="meta-desc-preview">${video.description}</span>` : ''}
+              </div>
+            </div>
+          </div>
+        </a>
+        <button class="link-copy-btn" title="Salin Tautan">
+          <i data-lucide="copy"></i>
+        </button>
+      `;
+
+      // Event listener tombol salin
+      const copyBtn = linkItem.querySelector(".link-copy-btn");
+      copyBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        navigator.clipboard.writeText(youtubeUrl).then(() => {
+          showToast("Link disalin!");
+        }).catch(() => {
+          const temp = document.createElement("input");
+          temp.value = youtubeUrl;
+          document.body.appendChild(temp);
+          temp.select();
+          document.execCommand("copy");
+          document.body.removeChild(temp);
+          showToast("Link disalin!");
+        });
       });
+
+      listContainer.appendChild(linkItem);
     });
 
-    // Klik pada thumbnail atau kartu juga langsung membuka YouTube
-    const thumbArea = card.querySelector(".card-thumb");
-    const titleArea = card.querySelector(".card-title");
-    [thumbArea, titleArea].forEach(elem => {
-      elem.addEventListener("click", () => {
-        window.open(youtubeUrl, "_blank", "noopener");
-      });
-    });
-    
-    lecturesGrid.appendChild(card);
+    linksContainer.appendChild(sectionElement);
   });
-  
+
   if (window.lucide) {
     lucide.createIcons();
   }
 }
 
-// 4. FILTERING & LIVE SEARCH
+// 3. PENCARIAN & FILTER
 function handleSearch() {
   const query = searchInput.value.trim().toLowerCase();
   
@@ -387,30 +365,20 @@ function handleSearch() {
 
 function applyFilters() {
   const query = searchInput.value.trim().toLowerCase();
-  const activeTab = categoryTabs.querySelector('.cat-btn.active');
-  const selectedCategory = activeTab ? activeTab.getAttribute('data-category') : 'all';
   
   filteredPlaylist = playlist.filter(video => {
-    const matchesQuery = video.title.toLowerCase().includes(query) || 
-                         video.description.toLowerCase().includes(query);
-                         
-    // Jika Kategori Kustom / Tautan Anda dipilih
-    if (selectedCategory === "Kustom / Muhibbin") {
-      return matchesQuery && video.channel === "Kustom / Muhibbin";
-    }
-    
-    const matchesCategory = selectedCategory === "all" || video.category === selectedCategory;
-    return matchesQuery && matchesCategory;
+    return video.title.toLowerCase().includes(query) || 
+           video.category.toLowerCase().includes(query) ||
+           video.description.toLowerCase().includes(query);
   });
   
-  renderGallery();
+  renderLinkList();
 }
 
-// 5. INPUT VIDEO BARU (LOCAL STORAGE)
+// 4. INPUT LINK KUSTOM LOKAL
 function extractYouTubeId(url) {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
   const match = url.match(regExp);
-  
   if (match && match[2].length === 11) {
     return match[2];
   } else if (url.trim().length === 11) {
@@ -428,13 +396,12 @@ function handleAddVideo() {
   const videoId = extractYouTubeId(urlInput);
   
   if (!videoId) {
-    alert("Tautan YouTube atau Video ID tidak valid! Harap masukkan format link yang benar.");
+    alert("Tautan YouTube tidak valid! Masukkan format URL YouTube yang benar.");
     return;
   }
   
-  // Cek duplikasi
   if (playlist.some(v => v.id === videoId)) {
-    alert("Video ini sudah terdaftar di dalam playlist!");
+    alert("Tautan ini sudah ada di dalam list!");
     return;
   }
   
@@ -442,16 +409,14 @@ function handleAddVideo() {
     id: videoId,
     title: titleInput,
     channel: "Kustom / Muhibbin",
-    duration: "00:00", // Default dummy duration
+    duration: "00:00",
     category: catInput,
-    description: descInput || "Tautan pengajian tambahan yang dimasukkan secara lokal oleh pengguna.",
+    description: descInput || "Ditambahkan oleh pengguna.",
     thumbnail: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
   };
   
-  // Simpan ke array
   playlist.push(newVideo);
   
-  // Dapatkan video custom lama untuk di-merge ke LocalStorage
   const customStored = localStorage.getItem("gusbaha_custom_videos");
   let customList = [];
   if (customStored) {
@@ -462,48 +427,41 @@ function handleAddVideo() {
   customList.push(newVideo);
   localStorage.setItem("gusbaha_custom_videos", JSON.stringify(customList));
   
-  // Reset Form & Tutup Modal
   addVideoForm.reset();
   addVideoModal.classList.remove("open");
   
-  // Re-render
-  updateStats();
   applyFilters();
-  showToast("Pengajian baru berhasil ditambahkan!");
+  showToast("Tautan baru berhasil disimpan!");
 }
 
-// 6. UTILITIES (TOAST NOTIFICATIONS)
+// 5. TOAST UTILITY
 function showToast(message) {
   const toast = document.createElement("div");
   toast.className = "toast";
   toast.innerHTML = `
-    <i data-lucide="check-circle" style="color: var(--clr-gold); width: 20px; height: 20px;"></i>
+    <i data-lucide="check-circle" style="color: var(--clr-gold); width: 16px; height: 16px;"></i>
     <span>${message}</span>
   `;
   
   toastContainer.appendChild(toast);
   if (window.lucide) lucide.createIcons();
   
-  // Animate in
   setTimeout(() => {
     toast.classList.add("show");
   }, 10);
   
-  // Animate out
   setTimeout(() => {
     toast.classList.remove("show");
     setTimeout(() => {
       toast.remove();
     }, 300);
-  }, 3000);
+  }, 2500);
 }
 
-// 7. EVENT LISTENERS SETUP
+// 6. EVENT LISTENERS SETUP
 function setupEventListeners() {
-  // Live Search Input
   searchInput.addEventListener('input', handleSearch);
   
-  // Tombol Hapus Input Pencarian
   clearSearchBtn.addEventListener('click', () => {
     searchInput.value = "";
     clearSearchBtn.style.display = "none";
@@ -511,23 +469,10 @@ function setupEventListeners() {
     applyFilters();
   });
   
-  // Filter Kategori
-  categoryTabs.addEventListener('click', (e) => {
-    const clickedBtn = e.target.closest('.cat-btn');
-    if (!clickedBtn) return;
-    
-    categoryTabs.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-    clickedBtn.classList.add('active');
-    
-    applyFilters();
-  });
-  
-  // Sinkronisasi Manual
   syncBtn.addEventListener('click', () => {
     loadInitialData(true);
   });
   
-  // Modal Buka & Tutup
   addVideoBtn.addEventListener('click', () => {
     addVideoModal.classList.add('open');
   });
@@ -545,17 +490,16 @@ function setupEventListeners() {
   addVideoForm.addEventListener('submit', handleAddVideo);
 }
 
-// 8. PWA SERVICE WORKER & TOMBOL INSTALASI
+// 7. PWA SERVICE WORKER
 function setupPwa() {
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./sw.js')
-        .then((reg) => console.log('PWA ServiceWorker registered. Scope:', reg.scope))
-        .catch((err) => console.error('PWA ServiceWorker registration failed:', err));
+        .then((reg) => console.log('ServiceWorker registered'))
+        .catch((err) => console.error('ServiceWorker failed', err));
     });
   }
 
-  // Menangani Instalasi Aplikasi
   let deferredPrompt;
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
@@ -569,30 +513,18 @@ function setupPwa() {
   if (installPwaBtn) {
     installPwaBtn.addEventListener('click', async () => {
       if (!deferredPrompt) return;
-      
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
-      console.log(`PWA Install Choice Outcome: ${outcome}`);
-      
+      console.log(`PWA Outcome: ${outcome}`);
       deferredPrompt = null;
       installPwaBtn.style.display = 'none';
     });
   }
-
-  window.addEventListener('appinstalled', () => {
-    console.log('PWA Muhibbin Gus Baha installed successfully');
-    if (installPwaBtn) installPwaBtn.style.display = 'none';
-    deferredPrompt = null;
-  });
 }
 
-// INIASIALISASI APLIKASI
+// INIT
 document.addEventListener("DOMContentLoaded", () => {
   setupEventListeners();
   loadInitialData();
   setupPwa();
-  
-  if (window.lucide) {
-    lucide.createIcons();
-  }
 });

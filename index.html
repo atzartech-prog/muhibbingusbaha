@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhibbin Gus Baha | Portal Galeri & Koleksi Ceramah Lengkap</title>
-    <meta name="description" content="Aplikasi portal galeri video ceramah KH Bahauddin Nursalim (Gus Baha) terupdate dan terbagi per kategori secara praktis.">
+    <title>Daftar Ceramah Gus Baha | Koleksi Tautan YouTube Resmi</title>
+    <meta name="description" content="Koleksi link kajian KH Bahauddin Nursalim (Gus Baha) dari Official LP3IA, Santri Gayeng, dan NU Online.">
     
     <!-- PWA Settings -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0e3d24">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Gus Baha">
     <link rel="apple-touch-icon" href="icon-192.png">
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
@@ -27,126 +26,76 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <!-- Background elements -->
     <div class="bg-pattern"></div>
     <div class="glow-orb orb-primary"></div>
-    <div class="glow-orb orb-secondary"></div>
 
     <div class="container">
-        <!-- Header -->
+        <!-- Minimalist Header -->
         <header class="app-header">
             <div class="logo-section">
-                <div class="logo-icon">
-                    <svg viewBox="0 0 100 100" class="svg-logo">
-                        <path d="M 15 70 C 15 30, 50 15, 50 15 C 50 15, 85 30, 85 70 Z" fill="none" stroke="#d4af37" stroke-width="6"/>
-                        <polygon points="40,40 65,52 40,64" fill="#d4af37"/>
-                        <path d="M 25 80 C 40 70, 45 70, 50 75 C 55 70, 60 70, 75 80" fill="none" stroke="#d4af37" stroke-width="5"/>
-                    </svg>
-                </div>
-                <div class="logo-text">
-                    <h1>Muhibbin <span>Gus Baha</span></h1>
-                    <p>Koleksi Tautan Ceramah Resmi KH Bahauddin Nursalim</p>
-                </div>
+                <h1>Koleksi Link <span>Gus Baha</span></h1>
+                <p>Direktori Tautan YouTube Resmi KH Bahauddin Nursalim</p>
             </div>
             
             <div class="header-actions">
-                <button class="action-btn" id="syncBtn" title="Perbarui Daftar Tautan">
+                <button class="action-btn" id="syncBtn" title="Perbarui Tautan">
                     <i data-lucide="refresh-cw" id="syncIcon"></i>
-                    <span>Perbarui Tautan</span>
+                    <span>Perbarui</span>
                 </button>
-                <button class="action-btn" id="addVideoBtn" title="Tambah Ceramah Baru">
+                <button class="action-btn" id="addVideoBtn" title="Tambah Tautan">
                     <i data-lucide="plus-circle"></i>
-                    <span>Tambah Tautan</span>
+                    <span>Tambah Link</span>
                 </button>
-                <button class="action-btn install-btn" id="installPwaBtn" style="display: none;" title="Instal Aplikasi PWA">
+                <button class="action-btn install-btn" id="installPwaBtn" style="display: none;" title="Instal PWA">
                     <i data-lucide="download"></i>
                     <span>Instal App</span>
                 </button>
             </div>
         </header>
 
-        <!-- Stats Bar Section -->
-        <section class="stats-bar" aria-label="Statistik Koleksi">
-            <div class="stat-card">
-                <div class="stat-icon"><i data-lucide="video"></i></div>
-                <div class="stat-info">
-                    <span class="stat-value" id="statTotalVids">0</span>
-                    <span class="stat-label">Total Ceramah</span>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i data-lucide="layers"></i></div>
-                <div class="stat-info">
-                    <span class="stat-value" id="statTotalCats">0</span>
-                    <span class="stat-label">Kategori</span>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i data-lucide="clock"></i></div>
-                <div class="stat-info">
-                    <span class="stat-value" id="statLastUpdate">Mengecek...</span>
-                    <span class="stat-label">Terakhir Diperbarui</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Search and Filter Bar -->
+        <!-- Search Bar -->
         <section class="controls-section">
             <div class="search-bar-wrapper">
                 <i data-lucide="search" class="search-icon"></i>
-                <input type="text" id="searchInput" placeholder="Cari ceramah Gus Baha berdasarkan judul atau deskripsi..." autocomplete="off">
+                <input type="text" id="searchInput" placeholder="Cari judul ceramah atau deskripsi..." autocomplete="off">
                 <button class="clear-btn" id="clearSearchBtn" aria-label="Hapus Pencarian" style="display: none;">
                     <i data-lucide="x"></i>
                 </button>
             </div>
-
-            <!-- Horizontal Categories Tabs -->
-            <div class="category-tabs-container">
-                <div class="category-tabs" id="categoryTabs">
-                    <button class="cat-btn active" data-category="all">Semua Kategori</button>
-                    <button class="cat-btn" data-category="Tafsir Al-Qur'an">Tafsir Al-Qur'an</button>
-                    <button class="cat-btn" data-category="Kitab Tasawuf">Kitab Tasawuf</button>
-                    <button class="cat-btn" data-category="Fiqih & Hukum">Fiqih & Hukum</button>
-                    <button class="cat-btn" data-category="Ceramah Umum">Ceramah Umum</button>
-                    <button class="cat-btn" data-category="Kustom / Muhibbin">Tautan Anda</button>
-                </div>
-            </div>
         </section>
 
-        <!-- Grid Gallery of Lectures -->
-        <main class="lectures-section">
-            <div class="section-title-bar">
-                <h2 id="galleryTitle">Koleksi Semua Ceramah</h2>
-                <span class="count-badge" id="videoCountBadge">0 Video</span>
+        <!-- Main Link List Container -->
+        <main class="links-main">
+            <div class="list-status-bar">
+                <span class="count-badge" id="videoCountBadge">0 Tautan</span>
+                <span class="sync-time-badge" id="syncTimeBadge">Basis data: Lokal</span>
             </div>
 
-            <!-- Dynamic grid container -->
-            <div class="lectures-grid" id="lecturesGrid">
-                <!-- Fallback loading indicator -->
+            <!-- Grouped category lists will be injected here -->
+            <div class="links-container" id="linksContainer">
                 <div class="loading-state">
                     <div class="spinner"></div>
-                    <p>Memuat daftar ceramah Gus Baha...</p>
+                    <p>Memuat daftar tautan ceramah Gus Baha...</p>
                 </div>
             </div>
         </main>
 
-        <!-- Add Video Modal -->
+        <!-- Add Link Modal -->
         <div class="modal" id="addVideoModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 id="modalTitle"><i data-lucide="plus-circle"></i> Tambah Tautan Kustom</h2>
-                    <button class="close-btn" id="closeModalBtn" aria-label="Tutup Dialog"><i data-lucide="x"></i></button>
+                    <button class="close-btn" id="closeModalBtn" aria-label="Tutup"><i data-lucide="x"></i></button>
                 </div>
                 <div class="modal-body">
-                    <p class="modal-tip">Masukkan tautan video YouTube resmi Gus Baha (misal dari <strong>Official LP3IA</strong> atau <strong>Santri Gayeng</strong>) untuk dimasukkan ke daftar lokal Anda.</p>
                     <form id="addVideoForm" onsubmit="return false;">
                         <div class="form-group">
-                            <label for="videoUrl">Tautan Video YouTube atau ID Video</label>
-                            <input type="text" id="videoUrl" placeholder="https://www.youtube.com/watch?v=... atau ID video 11 karakter" required>
+                            <label for="videoUrl">Tautan YouTube / Video ID</label>
+                            <input type="text" id="videoUrl" placeholder="https://www.youtube.com/watch?v=... atau ID video" required>
                         </div>
                         <div class="form-group">
                             <label for="videoTitle">Judul Ceramah</label>
-                            <input type="text" id="videoTitle" placeholder="Contoh: Ngaji Kitab Hikam - Ikhlas dalam Beramal" required>
+                            <input type="text" id="videoTitle" placeholder="Contoh: Ngaji Tafsir Jalalain - Konsep Syukur" required>
                         </div>
                         <div class="form-group">
                             <label for="videoCategory">Kategori</label>
@@ -158,38 +107,25 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="videoDescription">Deskripsi Singkat (Opsional)</label>
-                            <textarea id="videoDescription" rows="3" placeholder="Tuliskan poin pembahasan ceramah disini..."></textarea>
+                            <label for="videoDescription">Ringkasan Singkat (Opsional)</label>
+                            <textarea id="videoDescription" rows="2" placeholder="Tuliskan ringkasan isi ceramah..."></textarea>
                         </div>
-                        <button type="submit" class="submit-btn">Simpan ke Playlist</button>
+                        <button type="submit" class="submit-btn">Simpan Tautan</button>
                     </form>
                 </div>
             </div>
         </div>
 
-        <!-- Toast Notifications Container -->
+        <!-- Toast Notifications -->
         <div class="toast-container" id="toastContainer"></div>
 
         <!-- Footer -->
         <footer class="app-footer">
-            <div class="footer-content">
-                <p>&copy; 2026 Muhibbin Gus Baha. Aplikasi ini bersifat independen dan menggunakan tautan ke kanal resmi YouTube resmi (LP3IA, Santri Gayeng, NU Online) demi mendukung syiar orisinil tanpa mengunduh ulang/melanggar hak cipta.</p>
-                <div class="footer-links">
-                    <a href="https://www.youtube.com/@officiallp3ia" target="_blank" rel="noopener" aria-label="YouTube LP3IA">
-                        <i data-lucide="youtube"></i> Official LP3IA
-                    </a>
-                    <a href="https://www.youtube.com/@SantriGayeng" target="_blank" rel="noopener" aria-label="YouTube Santri Gayeng">
-                        <i data-lucide="youtube"></i> Santri Gayeng
-                    </a>
-                    <a href="https://www.youtube.com/@NUOnlineID" target="_blank" rel="noopener" aria-label="YouTube NU Online">
-                        <i data-lucide="youtube"></i> NU Online
-                    </a>
-                </div>
-            </div>
+            <p>&copy; 2026 Muhibbin Gus Baha. Tautan bersumber langsung dari kanal resmi YouTube (LP3IA, Santri Gayeng, NU Online).</p>
         </footer>
     </div>
 
-    <!-- Application JavaScript Logic -->
+    <!-- Application Script -->
     <script src="app.js"></script>
 </body>
 </html>
