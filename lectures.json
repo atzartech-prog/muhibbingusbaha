@@ -1,146 +1,452 @@
 [
   {
-    "id": "lo_Fedw62vE",
-    "title": "Tafsir Jalalain: Kenapa Banyak Orang Tidak Bahagia?",
-    "channel": "Official LP3IA",
-    "duration": "34:52",
-    "category": "Tafsir Al-Qur'an",
-    "description": "Kajian mendalam Kitab Tafsir Jalalain bersama Gus Baha mengenai cara-cara menyikapi cobaan dan menghadirkan rasa syukur agar hidup selalu bahagia.",
-    "thumbnail": "https://img.youtube.com/vi/lo_Fedw62vE/hqdefault.jpg"
-  },
-  {
-    "id": "4Qiiv22YlLs",
-    "title": "Tafsir Jalalain: Tafsir Ayat-Ayat Syukur dan Sabar",
-    "channel": "Official LP3IA",
-    "duration": "51:04",
-    "category": "Tafsir Al-Qur'an",
-    "description": "Kajian tafsir surah-surah Al-Qur'an, menelusuri bagaimana Allah menggambarkan karakter hamba yang sabar dan pandai bersyukur.",
-    "thumbnail": "https://img.youtube.com/vi/4Qiiv22YlLs/hqdefault.jpg"
-  },
-  {
-    "id": "0k5F-8K_sI4",
-    "title": "Ngaji Bareng Gus Baha: Peluncuran Ulang Al-Qur'an dan Terjemahan Kemenag",
-    "channel": "Official LP3IA",
-    "duration": "45:12",
-    "category": "Tafsir Al-Qur'an",
-    "description": "Kajian spesial dalam peluncuran ulang Al-Qur'an terjemahan Kemenag RI, membahas metodologi pemahaman ayat suci secara kontekstual.",
-    "thumbnail": "https://img.youtube.com/vi/0k5F-8K_sI4/hqdefault.jpg"
-  },
-  {
-    "id": "-MRXL2aS2io",
-    "title": "Tafsir Al-Qur'an: Ayat-Ayat Pilihan yang Penuh Rahmat",
-    "channel": "Santri Gayeng",
-    "duration": "25:30",
-    "category": "Tafsir Al-Qur'an",
-    "description": "Menguraikan beberapa ayat pilihan yang menyejukkan hati dan menunjukkan betapa luasnya kasih sayang dan ampunan Allah SWT.",
-    "thumbnail": "https://img.youtube.com/vi/-MRXL2aS2io/hqdefault.jpg"
-  },
-  {
-    "id": "GVVauLw8fD0",
-    "title": "Kitab Hikam: Konsep Rida terhadap Takdir Allah",
-    "channel": "Official LP3IA",
-    "duration": "42:15",
+    "id": "KYNBl-lh1SA",
+    "title": "Rahasia Menikmati Ibadah Tanpa Beban",
+    "channel": "SANTRI GAYENG",
+    "duration": "11.46",
     "category": "Kitab Tasawuf",
-    "description": "Penjelasan untaian hikmah dari Kitab Al-Hikam karya Ibnu Athaillah As-Sakandari mengenai konsep rida terhadap seluruh ketetapan takdir Allah.",
-    "thumbnail": "https://img.youtube.com/vi/GVVauLw8fD0/hqdefault.jpg"
+    "description": "Kajian Gus Baha mengenai Rahasia Menikmati Ibadah Tanpa Beban.",
+    "thumbnail": "https://img.youtube.com/vi/KYNBl-lh1SA/hqdefault.jpg"
   },
   {
-    "id": "zBu_4PofhBI",
-    "title": "Kitab Hikam: Hakikat Rezeki dan Keberkahan Hidup",
-    "channel": "Official LP3IA",
-    "duration": "36:18",
-    "category": "Kitab Tasawuf",
-    "description": "Menjelaskan esensi rezeki menurut kacamata tasawuf, di mana rezeki batiniah berupa ketenangan hati jauh lebih utama dibanding materi semata.",
-    "thumbnail": "https://img.youtube.com/vi/zBu_4PofhBI/hqdefault.jpg"
+    "id": "ShoAWvwOeSU",
+    "title": "Cara Menghadapi Masalah Hidup dengan Senyuman",
+    "channel": "Family Glondong",
+    "duration": "46.16",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Cara Menghadapi Masalah Hidup dengan Senyuman.",
+    "thumbnail": "https://img.youtube.com/vi/ShoAWvwOeSU/hqdefault.jpg"
   },
   {
-    "id": "_6D1hs1mEY8",
-    "title": "Kitab Hikam: Ibadah Selama Apapun Tak Akan Cukup untuk Beli Surga",
-    "channel": "Official LP3IA",
-    "duration": "38:40",
-    "category": "Kitab Tasawuf",
-    "description": "Kajian mendalam tentang hakikat ibadah dan rahmat Allah SWT. Gus Baha menjelaskan secara logis mengapa surga diperoleh karena rahmat-Nya.",
-    "thumbnail": "https://img.youtube.com/vi/_6D1hs1mEY8/hqdefault.jpg"
+    "id": "J5WbTbXfwv8",
+    "title": "Tafsir Jalalain: Bab Hakikat Rezeki",
+    "channel": "Lentera Islami",
+    "duration": "49.51",
+    "category": "Tafsir Al-Qur'an",
+    "description": "Kajian Gus Baha mengenai Tafsir Jalalain: Bab Hakikat Rezeki.",
+    "thumbnail": "https://img.youtube.com/vi/J5WbTbXfwv8/hqdefault.jpg"
   },
   {
-    "id": "zqnHe1Ru4Hc",
-    "title": "Kitab Hikam: Cara Ber-Nego dengan Tuhan dalam Doa",
-    "channel": "Santri Gayeng",
-    "duration": "30:15",
-    "category": "Kitab Tasawuf",
-    "description": "Menjelaskan bab kepasrahan dan pengharapan dalam berdoa kepada Allah, berdasar ajaran para wali di Kitab Hikam.",
-    "thumbnail": "https://img.youtube.com/vi/zqnHe1Ru4Hc/hqdefault.jpg"
+    "id": "zPYZJFiTqlQ",
+    "title": "Kenapa Orang Alim Jarang Marah? Ini Rahasianya",
+    "channel": "Ngaji Hidup",
+    "duration": "5.22",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Kenapa Orang Alim Jarang Marah? Ini Rahasianya.",
+    "thumbnail": "https://img.youtube.com/vi/zPYZJFiTqlQ/hqdefault.jpg"
   },
   {
-    "id": "81Bn_KrA3WI",
-    "title": "Hikmah & Fiqih: Cara Menyikapi Perbedaan Pandangan Fiqih",
-    "channel": "Official LP3IA",
-    "duration": "28:10",
+    "id": "4OjgYDIKZGA",
+    "title": "Jangan Lupa Bahagia, Karena Bahagia Itu Perintah Agama",
+    "channel": "Anis Syan",
+    "duration": "3.36",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Jangan Lupa Bahagia, Karena Bahagia Itu Perintah Agama.",
+    "thumbnail": "https://img.youtube.com/vi/4OjgYDIKZGA/hqdefault.jpg"
+  },
+  {
+    "id": "eOdN2OABYj4",
+    "title": "Membongkar Logika Fikih Keseharian yang Sering Salah Paham",
+    "channel": "santri kidulan",
+    "duration": "54.54",
     "category": "Fiqih & Hukum",
-    "description": "Pandangan fiqih yang luwes dan logis khas Gus Baha dalam mengurai problematika fiqih sehari-hari dan bagaimana menyikapi perbedaan pandangan.",
-    "thumbnail": "https://img.youtube.com/vi/81Bn_KrA3WI/hqdefault.jpg"
+    "description": "Kajian Gus Baha mengenai Membongkar Logika Fikih Keseharian yang Sering Salah Paham.",
+    "thumbnail": "https://img.youtube.com/vi/eOdN2OABYj4/hqdefault.jpg"
   },
   {
-    "id": "DH2Ksi6E6iY",
-    "title": "Fiqih Logika: Hubungan Sifat Mendengar dan Mengetahui",
-    "channel": "Santri Gayeng",
-    "duration": "35:10",
+    "id": "TzwIXy7vAwE",
+    "title": "Filosofi Rokok dan Kopi dalam Sudut Pandang Fikih Santai",
+    "channel": "Pencinta Ulama",
+    "duration": "4.39",
     "category": "Fiqih & Hukum",
-    "description": "Diskusi teologis dan fiqih mengenai sifat-sifat wajib bagi Allah dan implementasinya dalam keyakinan tauhid yang kokoh.",
-    "thumbnail": "https://img.youtube.com/vi/DH2Ksi6E6iY/hqdefault.jpg"
+    "description": "Kajian Gus Baha mengenai Filosofi Rokok dan Kopi dalam Sudut Pandang Fikih Santai.",
+    "thumbnail": "https://img.youtube.com/vi/TzwIXy7vAwE/hqdefault.jpg"
   },
   {
-    "id": "x744J85iY8w",
-    "title": "Fiqih Sosial: Bukti Nyata Islam Bukan Cuma Milik Orang Arab!",
-    "channel": "Official LP3IA",
-    "duration": "29:30",
+    "id": "UjI_KOnq944",
+    "title": "Kunci Sukses Mendidik Anak Menjadi Saleh Tanpa Kekerasan",
+    "channel": "SANTRI REMBANG OFFICIAL",
+    "duration": "42.01",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Kunci Sukses Mendidik Anak Menjadi Saleh Tanpa Kekerasan.",
+    "thumbnail": "https://img.youtube.com/vi/UjI_KOnq944/hqdefault.jpg"
+  },
+  {
+    "id": "W4YENoBzwgw",
+    "title": "Hakikat Hubungan Suami Istri dalam Islam",
+    "channel": "Ngajine Santri Tv",
+    "duration": "11.37",
     "category": "Fiqih & Hukum",
-    "description": "Kajian tentang universalitas hukum Islam yang adaptif dengan tradisi lokal nusantara selama tidak melanggar syariat inti.",
-    "thumbnail": "https://img.youtube.com/vi/x744J85iY8w/hqdefault.jpg"
+    "description": "Kajian Gus Baha mengenai Hakikat Hubungan Suami Istri dalam Islam.",
+    "thumbnail": "https://img.youtube.com/vi/W4YENoBzwgw/hqdefault.jpg"
   },
   {
-    "id": "m6yAZ4iEMpg",
-    "title": "Ceramah Umum: Beragama Secara Simpel dan Santai",
-    "channel": "Official LP3IA",
-    "duration": "25:40",
-    "category": "Ceramah Umum",
-    "description": "Pentingnya beragama dengan cara yang menyenangkan, tidak mempersulit umat, serta bersikap moderat dalam berdakwah.",
-    "thumbnail": "https://img.youtube.com/vi/m6yAZ4iEMpg/hqdefault.jpg"
+    "id": "VCJYC8ZccVo",
+    "title": "Tafsir Ayat Kursi: Kedahsyatan Tauhid",
+    "channel": "SANTRI GAYENG",
+    "duration": "31.06",
+    "category": "Tafsir Al-Qur'an",
+    "description": "Kajian Gus Baha mengenai Tafsir Ayat Kursi: Kedahsyatan Tauhid.",
+    "thumbnail": "https://img.youtube.com/vi/VCJYC8ZccVo/hqdefault.jpg"
   },
   {
-    "id": "kYv_kHhH2Sg",
-    "title": "Logika Keimanan: Kebaikan Tanpa Tuhan & Menghadapi Tabiat Perempuan",
-    "channel": "Santri Gayeng",
-    "duration": "48:15",
+    "id": "wCqIwxxYF0w",
+    "title": "Mengapa Doa Kita Belum Dikabulkan? Ini Jawaban Gus Baha",
+    "channel": "METAMOREID",
+    "duration": "2.48",
     "category": "Ceramah Umum",
-    "description": "Kajian penuh hikmah tentang logika keimanan dalam menjawab argumen ateisme, serta nasihat bijak membina rumah tangga islami yang harmonis.",
-    "thumbnail": "https://img.youtube.com/vi/kYv_kHhH2Sg/hqdefault.jpg"
+    "description": "Kajian Gus Baha mengenai Mengapa Doa Kita Belum Dikabulkan? Ini Jawaban Gus Baha.",
+    "thumbnail": "https://img.youtube.com/vi/wCqIwxxYF0w/hqdefault.jpg"
   },
   {
-    "id": "c5ZEXh7feNw",
-    "title": "Dialog Ilmiah: Ngaji Penuh Humor Ilmiah bersama Prof. Quraish Shihab",
-    "channel": "Official LP3IA",
-    "duration": "1:15:30",
-    "category": "Ceramah Umum",
-    "description": "Pertemuan hangat dua ulama besar Indonesia, mendiskusikan khazanah tafsir, hukum Islam, dan dakwah ramah di era modern.",
-    "thumbnail": "https://img.youtube.com/vi/c5ZEXh7feNw/hqdefault.jpg"
+    "id": "yx628FIdO_k",
+    "title": "Seni Mengelola Kecewa Agar Menjadi Pahala",
+    "channel": "Nderek Ngaos",
+    "duration": "4.36",
+    "category": "Kitab Tasawuf",
+    "description": "Kajian Gus Baha mengenai Seni Mengelola Kecewa Agar Menjadi Pahala.",
+    "thumbnail": "https://img.youtube.com/vi/yx628FIdO_k/hqdefault.jpg"
   },
   {
-    "id": "d_2a5k3H6r0",
-    "title": "Tematik: Agar Hidup Mudah Bersyukur yang Benar",
-    "channel": "Official LP3IA",
-    "duration": "36:45",
-    "category": "Ceramah Umum",
-    "description": "Gus Baha menjabarkan seni bersyukur yang sesungguhnya secara teologis dan psikologis agar terhindar dari rasa dengki dan stres.",
-    "thumbnail": "https://img.youtube.com/vi/d_2a5k3H6r0/hqdefault.jpg"
+    "id": "q8RTYNx71e4",
+    "title": "Kisah-Kisah Wali Allah yang Unik dan Jenaka",
+    "channel": "Ngaji Bareng",
+    "duration": "39.41",
+    "category": "Kitab Tasawuf",
+    "description": "Kajian Gus Baha mengenai Kisah-Kisah Wali Allah yang Unik dan Jenaka.",
+    "thumbnail": "https://img.youtube.com/vi/q8RTYNx71e4/hqdefault.jpg"
   },
   {
-    "id": "2z-bqgloByU",
-    "title": "Tematik: Serius, Hal Sederhana Ini Bikin Masuk Surga",
-    "channel": "Santri Gayeng",
-    "duration": "22:15",
+    "id": "lz1oTUqOYdQ",
+    "title": "Pentingnya Menjaga Silaturahmi Tanpa Pamrih",
+    "channel": "Radio NUR FM Rembang",
+    "duration": "0.45",
     "category": "Ceramah Umum",
-    "description": "Kajian ringan dengan pesan mendalam bahwa jalan menuju surga itu luas dan dapat diraih lewat amalan-amalan kecil yang ikhlas.",
-    "thumbnail": "https://img.youtube.com/vi/2z-bqgloByU/hqdefault.jpg"
+    "description": "Kajian Gus Baha mengenai Pentingnya Menjaga Silaturahmi Tanpa Pamrih.",
+    "thumbnail": "https://img.youtube.com/vi/lz1oTUqOYdQ/hqdefault.jpg"
+  },
+  {
+    "id": "9gjDPlPXqe0",
+    "title": "Hukum Jual Beli Modern Menurut Empat Mazhab",
+    "channel": "Ngaji Bareng Channel",
+    "duration": "10.28",
+    "category": "Fiqih & Hukum",
+    "description": "Kajian Gus Baha mengenai Hukum Jual Beli Modern Menurut Empat Mazhab.",
+    "thumbnail": "https://img.youtube.com/vi/9gjDPlPXqe0/hqdefault.jpg"
+  },
+  {
+    "id": "SK-TD8-A5Fg",
+    "title": "Jangan Merasa Paling Benar, Belajarlah dari Sejarah Islam",
+    "channel": "Islam Nusantara",
+    "duration": "1.02.01",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Jangan Merasa Paling Benar, Belajarlah dari Sejarah Islam.",
+    "thumbnail": "https://img.youtube.com/vi/SK-TD8-A5Fg/hqdefault.jpg"
+  },
+  {
+    "id": "Pu50wAqLCPo",
+    "title": "Menghidupkan Sunah Nabi dalam Kehidupan Modern",
+    "channel": "SANTRI GAYENG",
+    "duration": "4.13",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Menghidupkan Sunah Nabi dalam Kehidupan Modern.",
+    "thumbnail": "https://img.youtube.com/vi/Pu50wAqLCPo/hqdefault.jpg"
+  },
+  {
+    "id": "DKSuXk_SmRI",
+    "title": "Tafsir Surat Al-Ikhlas: Murni Karena Allah",
+    "channel": "Tafsir Gus Baha",
+    "duration": "2.58",
+    "category": "Tafsir Al-Qur'an",
+    "description": "Kajian Gus Baha mengenai Tafsir Surat Al-Ikhlas: Murni Karena Allah.",
+    "thumbnail": "https://img.youtube.com/vi/DKSuXk_SmRI/hqdefault.jpg"
+  },
+  {
+    "id": "98eQTBYCrFY",
+    "title": "Cara Mengatasi Penyakit Hati: Iri dan Dengki",
+    "channel": "MUTIARA QOLBU",
+    "duration": "1.16.52",
+    "category": "Kitab Tasawuf",
+    "description": "Kajian Gus Baha mengenai Cara Mengatasi Penyakit Hati: Iri dan Dengki.",
+    "thumbnail": "https://img.youtube.com/vi/98eQTBYCrFY/hqdefault.jpg"
+  },
+  {
+    "id": "ZrIqR-oD27s",
+    "title": "Keutamaan Membaca Al-Qur'an dengan Pemahaman",
+    "channel": "Nasehat Gus Baha",
+    "duration": "31.51",
+    "category": "Tafsir Al-Qur'an",
+    "description": "Kajian Gus Baha mengenai Keutamaan Membaca Al-Qur'an dengan Pemahaman.",
+    "thumbnail": "https://img.youtube.com/vi/ZrIqR-oD27s/hqdefault.jpg"
+  },
+  {
+    "id": "-1m_gtiV-Jg",
+    "title": "Logika Wali: Melihat Dunia dari Sudut Pandang Akhirat",
+    "channel": "SANTRI GAYENG",
+    "duration": "5.11",
+    "category": "Kitab Tasawuf",
+    "description": "Kajian Gus Baha mengenai Logika Wali: Melihat Dunia dari Sudut Pandang Akhirat.",
+    "thumbnail": "https://img.youtube.com/vi/-1m_gtiV-Jg/hqdefault.jpg"
+  },
+  {
+    "id": "BuhhV8mFXII",
+    "title": "Hukum Waris dalam Islam secara Sederhana",
+    "channel": "SANTRI GAYENG",
+    "duration": "5.54",
+    "category": "Fiqih & Hukum",
+    "description": "Kajian Gus Baha mengenai Hukum Waris dalam Islam secara Sederhana.",
+    "thumbnail": "https://img.youtube.com/vi/BuhhV8mFXII/hqdefault.jpg"
+  },
+  {
+    "id": "2AsOtt_W2vQ",
+    "title": "Menghadapi Fitnah Akhir Zaman dengan Ilmu",
+    "channel": "Ngaji Bareng",
+    "duration": "36.38",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Menghadapi Fitnah Akhir Zaman dengan Ilmu.",
+    "thumbnail": "https://img.youtube.com/vi/2AsOtt_W2vQ/hqdefault.jpg"
+  },
+  {
+    "id": "Og71lj9VBHU",
+    "title": "Keindahan Akhlak Rasulullah kepada Non-Muslim",
+    "channel": "Santri Kalong Virtual",
+    "duration": "20.25",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Keindahan Akhlak Rasulullah kepada Non-Muslim.",
+    "thumbnail": "https://img.youtube.com/vi/Og71lj9VBHU/hqdefault.jpg"
+  },
+  {
+    "id": "cu6sr9nJarY",
+    "title": "Bekal Utama Menghadap Sang Pencipta",
+    "channel": "Ayo terus ngaji",
+    "duration": "1.59.44",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Bekal Utama Menghadap Sang Pencipta.",
+    "thumbnail": "https://img.youtube.com/vi/cu6sr9nJarY/hqdefault.jpg"
+  },
+  {
+    "id": "pdNeV4DWRTA",
+    "title": "Cara Selamat dari Siksa Kubur dengan Surat Al-Mulk",
+    "channel": "mampir ngombe",
+    "duration": "5.06",
+    "category": "Tafsir Al-Qur'an",
+    "description": "Kajian Gus Baha mengenai Cara Selamat dari Siksa Kubur dengan Surat Al-Mulk.",
+    "thumbnail": "https://img.youtube.com/vi/pdNeV4DWRTA/hqdefault.jpg"
+  },
+  {
+    "id": "Ff2W5INdpFY",
+    "title": "Kritik Gus Baha Terhadap Orang yang Terlalu Khusyuk Tapi Bodoh",
+    "channel": "Ngaji Gus Baha'",
+    "duration": "1.03.32",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Kritik Gus Baha Terhadap Orang yang Terlalu Khusyuk Tapi Bodoh.",
+    "thumbnail": "https://img.youtube.com/vi/Ff2W5INdpFY/hqdefault.jpg"
+  },
+  {
+    "id": "PML4kSCppUE",
+    "title": "Mengapa Sedekah Terang-terangan Itu Boleh? Ini Dalilnya",
+    "channel": "Ngaji Alon-alon",
+    "duration": "2.11",
+    "category": "Fiqih & Hukum",
+    "description": "Kajian Gus Baha mengenai Mengapa Sedekah Terang-terangan Itu Boleh? Ini Dalilnya.",
+    "thumbnail": "https://img.youtube.com/vi/PML4kSCppUE/hqdefault.jpg"
+  },
+  {
+    "id": "7LTreiqS1qc",
+    "title": "Tafsir Surah Al-Kahfi: Menghindari Fitnah Dajjal",
+    "channel": "Tafsir NU",
+    "duration": "1.23.09",
+    "category": "Tafsir Al-Qur'an",
+    "description": "Kajian Gus Baha mengenai Tafsir Surah Al-Kahfi: Menghindari Fitnah Dajjal.",
+    "thumbnail": "https://img.youtube.com/vi/7LTreiqS1qc/hqdefault.jpg"
+  },
+  {
+    "id": "VEdjersUqHo",
+    "title": "Rahasia di Balik Keberkahan Waktu Subuh",
+    "channel": "Family Glondong",
+    "duration": "2.00.27",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Rahasia di Balik Keberkahan Waktu Subuh.",
+    "thumbnail": "https://img.youtube.com/vi/VEdjersUqHo/hqdefault.jpg"
+  },
+  {
+    "id": "BWX5sCpctrc",
+    "title": "Fikih Pernikahan: Solusi Mengatasi Konflik Rumah Tangga",
+    "channel": "SANTRI GAYENG",
+    "duration": "22.09",
+    "category": "Fiqih & Hukum",
+    "description": "Kajian Gus Baha mengenai Fikih Pernikahan: Solusi Mengatasi Konflik Rumah Tangga.",
+    "thumbnail": "https://img.youtube.com/vi/BWX5sCpctrc/hqdefault.jpg"
+  },
+  {
+    "id": "xEYJBSFQoPM",
+    "title": "Mengapa Allah Membuat Manusia Lupa? Sebuah Hikmah Besar",
+    "channel": "NGAJI HIKMAH GUS BAHA",
+    "duration": "20.58",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Mengapa Allah Membuat Manusia Lupa? Sebuah Hikmah Besar.",
+    "thumbnail": "https://img.youtube.com/vi/xEYJBSFQoPM/hqdefault.jpg"
+  },
+  {
+    "id": "Ts616anRTFU",
+    "title": "Jangan Mengejek Orang Maksiat, Kita Belum Tentu Husnul Khotimah",
+    "channel": "Ngaji Gus Baha'",
+    "duration": "1.20.43",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Jangan Mengejek Orang Maksiat, Kita Belum Tentu Husnul Khotimah.",
+    "thumbnail": "https://img.youtube.com/vi/Ts616anRTFU/hqdefault.jpg"
+  },
+  {
+    "id": "xUmBIupOofk",
+    "title": "Logika Tauhid: Mengapa Dunia Ini Dianggap Permainan?",
+    "channel": "Bayt Al-Quran",
+    "duration": "34.34",
+    "category": "Tafsir Al-Qur'an",
+    "description": "Kajian Gus Baha mengenai Logika Tauhid: Mengapa Dunia Ini Dianggap Permainan?.",
+    "thumbnail": "https://img.youtube.com/vi/xUmBIupOofk/hqdefault.jpg"
+  },
+  {
+    "id": "gpo5vivG-x0",
+    "title": "Tafsir Kitab Hikam: Makna Pasrah yang Sebenarnya",
+    "channel": "Sabilun Najah ",
+    "duration": "50.55",
+    "category": "Kitab Tasawuf",
+    "description": "Kajian Gus Baha mengenai Tafsir Kitab Hikam: Makna Pasrah yang Sebenarnya.",
+    "thumbnail": "https://img.youtube.com/vi/gpo5vivG-x0/hqdefault.jpg"
+  },
+  {
+    "id": "jxjBGBp1ZZU",
+    "title": "Cara Mudah Masuk Surga Menurut Para Sahabat Nabi",
+    "channel": "NU Online",
+    "duration": "38.14",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Cara Mudah Masuk Surga Menurut Para Sahabat Nabi.",
+    "thumbnail": "https://img.youtube.com/vi/jxjBGBp1ZZU/hqdefault.jpg"
+  },
+  {
+    "id": "DZy-b7eTHMg",
+    "title": "Keutamaan Berprasangka Baik (Husnuzan) Kepada Takdir",
+    "channel": "kang Guyon",
+    "duration": "14.01",
+    "category": "Kitab Tasawuf",
+    "description": "Kajian Gus Baha mengenai Keutamaan Berprasangka Baik (Husnuzan) Kepada Takdir.",
+    "thumbnail": "https://img.youtube.com/vi/DZy-b7eTHMg/hqdefault.jpg"
+  },
+  {
+    "id": "dcKQ0hS32jY",
+    "title": "Hukum Menggunakan Harta Syubhat dalam Keadaan Darurat",
+    "channel": "KATA MUTIARA",
+    "duration": "4.31",
+    "category": "Fiqih & Hukum",
+    "description": "Kajian Gus Baha mengenai Hukum Menggunakan Harta Syubhat dalam Keadaan Darurat.",
+    "thumbnail": "https://img.youtube.com/vi/dcKQ0hS32jY/hqdefault.jpg"
+  },
+  {
+    "id": "KwJAoCO9EIQ",
+    "title": "Belajar Ikhlas dari Cara Kerja Jantung dan Nafas",
+    "channel": "Al-Farabi Chanel",
+    "duration": "41.46",
+    "category": "Kitab Tasawuf",
+    "description": "Kajian Gus Baha mengenai Belajar Ikhlas dari Cara Kerja Jantung dan Nafas.",
+    "thumbnail": "https://img.youtube.com/vi/KwJAoCO9EIQ/hqdefault.jpg"
+  },
+  {
+    "id": "DhnqCl6H1_g",
+    "title": "Mengupas Tuntas Bab Thaharah (Bersuci) yang Sering Keliru",
+    "channel": "Wahyudi Yudi",
+    "duration": "52.46",
+    "category": "Fiqih & Hukum",
+    "description": "Kajian Gus Baha mengenai Mengupas Tuntas Bab Thaharah (Bersuci) yang Sering Keliru.",
+    "thumbnail": "https://img.youtube.com/vi/DhnqCl6H1_g/hqdefault.jpg"
+  },
+  {
+    "id": "O-n9YVXZggw",
+    "title": "Pentingnya Memiliki Guru Sanad yang Jelas",
+    "channel": "Album Ngaji",
+    "duration": "22.51",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Pentingnya Memiliki Guru Sanad yang Jelas.",
+    "thumbnail": "https://img.youtube.com/vi/O-n9YVXZggw/hqdefault.jpg"
+  },
+  {
+    "id": "Qi-UvzIs9PA",
+    "title": "Menyikapi Perbedaan Mazhab dengan Hati Lapang",
+    "channel": "ILMUNA CHANNEL",
+    "duration": "5.01",
+    "category": "Fiqih & Hukum",
+    "description": "Kajian Gus Baha mengenai Menyikapi Perbedaan Mazhab dengan Hati Lapang.",
+    "thumbnail": "https://img.youtube.com/vi/Qi-UvzIs9PA/hqdefault.jpg"
+  },
+  {
+    "id": "THrYhN5VjZI",
+    "title": "Tafsir Ayat-Ayat Riba dan Solusi Ekonomi Umat",
+    "channel": "inma channel",
+    "duration": "1.39.40",
+    "category": "Fiqih & Hukum",
+    "description": "Kajian Gus Baha mengenai Tafsir Ayat-Ayat Riba dan Solusi Ekonomi Umat.",
+    "thumbnail": "https://img.youtube.com/vi/THrYhN5VjZI/hqdefault.jpg"
+  },
+  {
+    "id": "y0kuRxP5_JA",
+    "title": "Rahasia Istighfar yang Cepat Mengapus Dosa",
+    "channel": "Santri Kalong Virtual",
+    "duration": "33.55",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Rahasia Istighfar yang Cepat Mengapus Dosa.",
+    "thumbnail": "https://img.youtube.com/vi/y0kuRxP5_JA/hqdefault.jpg"
+  },
+  {
+    "id": "8Wsjw1-_39s",
+    "title": "Mengapa Umat Nabi Muhammad Mendapat Banyak Keistimewaan?",
+    "channel": "SANTRI GAYENG",
+    "duration": "6.02",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Mengapa Umat Nabi Muhammad Mendapat Banyak Keistimewaan?.",
+    "thumbnail": "https://img.youtube.com/vi/8Wsjw1-_39s/hqdefault.jpg"
+  },
+  {
+    "id": "rbIAPi5E9Nw",
+    "title": "Kisah Dialog Nabi Musa dan Allah yang Penuh Pelajaran",
+    "channel": "SINAU GAYENG",
+    "duration": "1.32.27",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Kisah Dialog Nabi Musa dan Allah yang Penuh Pelajaran.",
+    "thumbnail": "https://img.youtube.com/vi/rbIAPi5E9Nw/hqdefault.jpg"
+  },
+  {
+    "id": "ITP6idBAz2c",
+    "title": "Hukum Menafkahi Orang Tua vs Istri Menurut Islam",
+    "channel": "BABAKAN NGAJI",
+    "duration": "14.41",
+    "category": "Fiqih & Hukum",
+    "description": "Kajian Gus Baha mengenai Hukum Menafkahi Orang Tua vs Istri Menurut Islam.",
+    "thumbnail": "https://img.youtube.com/vi/ITP6idBAz2c/hqdefault.jpg"
+  },
+  {
+    "id": "AeMvg8hHThA",
+    "title": "Cara Menjaga Iman di Tengah Gempuran Media Sosial",
+    "channel": "Santri Media Online",
+    "duration": "9.50",
+    "category": "Ceramah Umum",
+    "description": "Kajian Gus Baha mengenai Cara Menjaga Iman di Tengah Gempuran Media Sosial.",
+    "thumbnail": "https://img.youtube.com/vi/AeMvg8hHThA/hqdefault.jpg"
+  },
+  {
+    "id": "r2fVfu-8Qoc",
+    "title": "Filsafat Syukur: Menerima Kekurangan Diri",
+    "channel": "Daily Nasihat",
+    "duration": "1.12.08",
+    "category": "Kitab Tasawuf",
+    "description": "Kajian Gus Baha mengenai Filsafat Syukur: Menerima Kekurangan Diri.",
+    "thumbnail": "https://img.youtube.com/vi/r2fVfu-8Qoc/hqdefault.jpg"
+  },
+  {
+    "id": "86bNsSQ6ilw",
+    "title": "Tafsir Surah Yasin: Menghidupkan Hati yang Mati",
+    "channel": "Tafsir NU",
+    "duration": "1.22.14",
+    "category": "Tafsir Al-Qur'an",
+    "description": "Kajian Gus Baha mengenai Tafsir Surah Yasin: Menghidupkan Hati yang Mati.",
+    "thumbnail": "https://img.youtube.com/vi/86bNsSQ6ilw/hqdefault.jpg"
   }
 ]
