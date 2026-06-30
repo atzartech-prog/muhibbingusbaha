@@ -1,33 +1,36 @@
-# 🕌 Muhibbin Gus Baha | Portal Audio Pengajian Resmi (PWA)
+# 🕌 Muhibbin Gus Baha | Portal Koleksi Ceramah Lengkap (PWA)
 
-Aplikasi portal web premium berbasis **Progressive Web App (PWA)** yang dirancang khusus untuk mendengarkan rekaman audio pengajian resmi dari **KH Bahauddin Nursalim (Gus Baha)**. Seluruh aliran suara bersumber langsung dari kanal resmi YouTube seperti **Official LP3IA**.
+Aplikasi portal web premium berbasis **Progressive Web App (PWA)** yang dirancang sebagai direktori dan galeri tautan ceramah resmi dari **KH Bahauddin Nursalim (Gus Baha)**. Aplikasi ini membagi seluruh rekaman kajian langsung ke dalam berbagai kategori ceramah yang rapi dan mempermudah pengguna untuk mendengarkan kajian secara tertata.
+
+Seluruh tautan mengarah langsung ke video orisinil pada kanal YouTube resmi seperti **Official LP3IA**, **Santri Gayeng**, dan **NU Online**.
 
 ---
 
 ## ✨ Fitur Utama
 
-1.  **🛡️ Kepatuhan Hak Cipta (Copyright Compliant)**:
-    Aplikasi ini menggunakan **YouTube Iframe Player API** resmi untuk memutar konten. Cara ini 100% legal, tidak melakukan penggandaan berkas video/audio, dan tetap menyalurkan lalu lintas tontonan (*views*) serta tayangan iklan kepada pemilik hak cipta resmi (Official LP3IA/kreator asli).
-2.  **🎧 Versi Audio Saja (Dedicated Audio-Only)**:
-    Antarmuka aplikasi didesain khusus sebagai pemutar audio kaset analog pita berputar yang indah dengan visualisasi gelombang frekuensi dinamis, sementara pemutaran video YouTube tetap berjalan secara tersembunyi di latar belakang untuk mematuhi hak cipta tanpa memakan area layar utama.
-3.  **📶 Pemutaran Latar Belakang (Background Playback)**:
-    Terintegrasi dengan **HTML5 Media Session API**. Saat aplikasi diposisikan di latar belakang, perangkat diminimalkan, atau layar ponsel terkunci, audio pengajian tetap dapat diputar dan dikendalikan langsung melalui menu tray notifikasi sistem atau layar kunci (*lockscreen*).
-4.  **📱 Dukungan PWA & Tombol Instalasi**:
-    Dapat diinstal langsung di perangkat desktop (Chrome/Edge) maupun ponsel cerdas (Android/iOS) sebagai aplikasi mandiri (*standalone*). Tersedia tombol instalasi kustom yang muncul otomatis saat PWA siap dipasang.
-5.  **💾 Daftar Putar Kustom Terintegrasi (Local Storage)**:
-    Selain daftar bawaan, pengguna dapat menambahkan tautan video pengajian Gus Baha lainnya dari YouTube secara dinamis melalui tombol "Tambah Pengajian". Data ini disimpan secara lokal di dalam memori peramban (*LocalStorage*).
-6.  **🔍 Pencarian & Filter Kategori**:
-    Memudahkan pengguna mencari penggalan kajian berdasarkan judul atau deskripsi kitab, serta memfilternya berdasarkan kategori Kitab (Tafsir Jalalain, Kitab Hikam, Hikmah & Fiqih, Umum).
+1.  **📱 Direct YouTube Deep-Linking**:
+    Saat tautan ceramah diklik, sistem akan langsung membuka halaman YouTube asli. Pada perangkat ponsel (Android/iOS), tautan ini secara otomatis akan dialihkan untuk langsung membuka aplikasi YouTube bawaan, memberikan pengalaman mendengarkan yang mulus.
+2.  **🛡️ Kepatuhan Hak Cipta (Copyright Compliant)**:
+    Aplikasi ini tidak melakukan penggandaan, pengunggahan ulang (*reupload*), ataupun pengunduhan berkas media. Lalu lintas tontonan (*views*) dan perolehan iklan tetap tersalurkan penuh kepada para pemilik hak cipta resmi (Official LP3IA/Santri Gayeng/NU Online).
+3.  **🔄 Sinkronisasi Tautan Otomatis ("Perbarui Tautan")**:
+    Aplikasi dilengkapi tombol sinkronisasi yang secara dinamis mengambil pembaharuan daftar ceramah dari berkas `lectures.json` di server. Jika terdapat pembaharuan tautan ceramah baru di repositori GitHub, pengguna dapat memperbaruinya secara instan tanpa perlu memasang ulang aplikasi.
+4.  **💾 Tautan Kustom Lokal (LocalStorage)**:
+    Pengguna dapat menambahkan video ceramah Gus Baha lainnya yang tidak ada di daftar utama menggunakan tombol "Tambah Tautan". Data ini disimpan secara lokal di memori peramban pengguna dan dikelompokkan ke dalam kategori tersendiri.
+5.  **🔍 Pencarian Instan & Filter Kategori**:
+    Memudahkan pencarian tema tertentu menggunakan kata kunci pada judul dan deskripsi, serta memfilternya berdasarkan kategori Kitab (Tafsir Al-Qur'an, Kitab Tasawuf, Fiqih & Hukum, Ceramah Umum, Tautan Anda).
+6.  **📊 Dasbor Statistik**:
+    Menampilkan data jumlah ceramah, jumlah kategori aktif, serta waktu pembaruan basis data terakhir secara *real-time*.
 
 ---
 
 ## 📂 Struktur Berkas Proyek
 
 ```bash
-muhibbin-gus-baha/
+muhibbingusbaha/
 ├── index.html              # Struktur utama antarmuka dengan PWA meta-tags & modal form
-├── style.css               # Desain bertema hijau-emas islami premium, layout grid, & animasi kaset
-├── app.js                  # Logika pemutar, integrasi API YouTube, Media Session, & LocalStorage
+├── style.css               # Desain bertema hijau-emas islami premium, layout grid responsif
+├── app.js                  # Logika filter pencarian, integrasi sinkronisasi JSON & LocalStorage
+├── lectures.json           # Basis data utama daftar ceramah Gus Baha (Format JSON)
 ├── sw.js                   # Service Worker untuk penanganan cache & dukungan akses offline
 ├── manifest.json           # Manifes Web App untuk identitas standalone PWA & jalur ikon
 ├── icon.svg                # Master desain ikon vektor (SVG) dengan motif kubah masjid emas
@@ -40,45 +43,43 @@ muhibbin-gus-baha/
 
 ---
 
-## 🛠️ Detail Implementasi Pemutaran Latar Belakang
+## ✍️ Cara Menambahkan / Memperbarui Tautan Baru
 
-*   **Pembatasan Sistem**: Kebijakan peramban modern (seperti Chrome & Safari) melarang pemutaran audio otomatis (*autoplay*) sebelum adanya interaksi pertama dari pengguna. Pengguna harus menekan tombol putar (*play*) sekali di awal agar audio dapat berjalan di latar belakang.
-*   **Keadaan Browser Ditutup**: Secara teknis, jika aplikasi/peramban **ditutup paksa (force close/kill process)** dari daftar tugas sistem operasi, semua pemrosesan JavaScript akan dihentikan dan suara akan mati. Namun, jika peramban/jendela PWA **diminimalkan (minimized)**, layar ponsel redup/terkunci, atau tab dialihkan, audio tetap berjalan terus berkat integrasi **Media Session API** yang kami sediakan di dalam berkas [app.js](file:///C:/Users/imron/Downloads/muhibbin-gus-baha/app.js).
+Untuk melakukan pembaharuan daftar ceramah bawaan agar dapat diakses oleh semua pengguna:
 
----
+1.  Buka berkas `lectures.json` di dalam repositori ini.
+2.  Tambahkan entri JSON baru di dalam array dengan format berikut:
 
-## 🔧 Panduan Mengembangkan / Menambah Daftar Default
-
-Untuk mengubah daftar putar bawaan yang langsung muncul saat aplikasi pertama kali dibuka oleh pengguna baru, buka berkas [app.js](file:///C:/Users/imron/Downloads/muhibbin-gus-baha/app.js) dan ubah data pada konstanta `DEFAULT_VIDEOS`:
-
-```javascript
-const DEFAULT_VIDEOS = [
-    {
-        id: "VIDEO_ID_YOUTUBE",          // Isikan 11 karakter kode ID di akhir link video youtube
-        title: "Judul Pengajian...",
-        channel: "Official LP3IA",
-        duration: "30:45",
-        category: "Tafsir Jalalain",     // Pilihan: 'Tafsir Jalalain', 'Kitab Hikam', 'Hikmah & Fiqih', 'Umum'
-        description: "Tulis ringkasan isi kajian pengajian disini.",
-        thumbnail: "https://img.youtube.com/vi/VIDEO_ID_YOUTUBE/hqdefault.jpg"
-    },
-    // tambahkan entri lainnya...
-];
+```json
+  {
+    "id": "KODE_VIDEO_YOUTUBE",
+    "title": "Judul Kajian Pengajian...",
+    "channel": "Kanal Sumber (e.g. Official LP3IA / Santri Gayeng)",
+    "duration": "Durasi (e.g. 35:20)",
+    "category": "Pilihan Kategori (Tafsir Al-Qur'an / Kitab Tasawuf / Fiqih & Hukum / Ceramah Umum)",
+    "description": "Tulis ringkasan isi kajian pengajian Gus Baha di sini.",
+    "thumbnail": "https://img.youtube.com/vi/KODE_VIDEO_YOUTUBE/hqdefault.jpg"
+  }
 ```
+
+*Catatan: `id` adalah 11 karakter unik di bagian akhir URL video YouTube (misalnya pada `youtube.com/watch?v=lo_Fedw62vE`, ID-nya adalah `lo_Fedw62vE`).*
+
+3.  Setelah melakukan perubahan pada `lectures.json`, lakukan commit dan push ke GitHub.
+4.  Pengguna aplikasi di peramban tinggal mengeklik tombol **"Perbarui Tautan"** pada aplikasi untuk langsung memuat data terbaru secara asinkron.
 
 ---
 
 ## 💻 Menjalankan Uji Coba Secara Lokal
 
-Agar Service Worker PWA dapat teregistrasi, aplikasi harus diakses menggunakan protokol keamanan **`localhost`** atau **`https`**.
+Agar Service Worker PWA dapat teregistrasi dengan baik, aplikasi harus diakses menggunakan protokol keamanan **`localhost`** atau **`https`**.
 
 ### Menjalankan Server Lokal dengan Python:
-1.  Buka terminal/Command Prompt di dalam direktori `C:\Users\imron\Downloads\muhibbin-gus-baha`.
+1.  Buka terminal di dalam direktori `muhibbingusbaha`.
 2.  Jalankan perintah berikut:
     ```bash
-    python -m http.server 8080
+    python3 -m http.server 8080
     ```
-3.  Buka browser dan buka alamat: **`http://localhost:8080`**
+3.  Buka browser dan akses alamat: **`http://localhost:8080`**
 
 ### Menjalankan Server Lokal dengan Node.js:
 1.  Jalankan perintah berikut di terminal:
@@ -89,19 +90,16 @@ Agar Service Worker PWA dapat teregistrasi, aplikasi harus diakses menggunakan p
 
 ---
 
-## 🚀 Panduan Deploy ke GitHub Pages
+## 🚀 Pemasangan ke GitHub Pages
 
-1.  Buat repositori baru di GitHub (misal bernama `muhibbin-gus-baha`).
-2.  Salin seluruh isi berkas di direktori ini ke dalam repositori git lokal Anda.
-3.  Commit dan Push kode Anda ke GitHub:
-    ```bash
-    git init
-    git remote add origin https://github.com/USERNAME/muhibbin-gus-baha.git
-    git branch -M main
-    git add .
-    git commit -m "feat: inisialisasi portal PWA Muhibbin Gus Baha"
-    git push -u origin main
-    ```
-4.  Buka halaman repositori Anda di GitHub, pilih **Settings -> Pages**.
-5.  Di bagian **Build and deployment**, ubah Source menjadi **Deploy from a branch** dan pilih branch **`main`** / folder **`/ (root)`**, lalu tekan **Save**.
-6.  Situs Anda akan aktif beberapa saat kemudian di alamat **`https://USERNAME.github.io/muhibbin-gus-baha/`** dengan HTTPS aktif sehingga fitur PWA & Pemutaran Latar Belakang siap digunakan secara luas oleh para jamaah dan muhibbin.
+Aplikasi ini sudah diprogram untuk dipasang pada GitHub Pages dengan tautan utama:
+**`https://atzartech-prog.github.io/muhibbingusbaha/`**
+
+### Melakukan Push Pembaruan:
+Jika Anda telah mengedit berkas lokasl dan ingin mengunggah perubahan tersebut:
+```bash
+git add .
+git commit -m "update: perbarui tautan ceramah Gus Baha dan redesign antarmuka galeri"
+git push origin main
+```
+Beberapa menit setelah proses push selesai, perubahan akan langsung aktif dan dapat diakses publik dengan HTTPS aktif, siap digunakan oleh para jamaah dan muhibbin.

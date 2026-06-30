@@ -1,756 +1,598 @@
 /**
- * Muhibbin Gus Baha - Portal Audio & Video Player
- * ----------------------------------------------
- * Integrasi API YouTube resmi untuk menonton & mendengarkan pengajian KH Bahauddin Nursalim.
+ * Muhibbin Gus Baha - Portal Galeri & Koleksi Tautan YouTube
+ * ---------------------------------------------------------
+ * Mengelola rendering kartu ceramah, pencarian, pengelompokan kategori,
+ * sinkronisasi dinamis dari server, serta penambahan tautan lokal.
  */
 
-// 1. DATASET DEFAULTS (Pengajian Resmi LP3IA)
+// 1. DATASET DEFAULTS (Sebagai cadangan jika berkas JSON gagal dimuat)
 const DEFAULT_VIDEOS = [
-    {
-        id: "lo_Fedw62vE",
-        title: "Tafsir Jalalain: Kenapa Banyak Orang Tidak Bahagia?",
-        channel: "Official LP3IA",
-        duration: "34:52",
-        category: "Tafsir Jalalain",
-        description: "Kajian mendalam Kitab Tafsir Jalalain bersama Gus Baha mengenai cara-cara menyikapi cobaan dan menghadirkan rasa syukur agar hidup selalu bahagia.",
-        thumbnail: "https://img.youtube.com/vi/lo_Fedw62vE/hqdefault.jpg"
-    },
-    {
-        id: "GVVauLw8fD0",
-        title: "Kitab Hikam: Konsep Rida terhadap Takdir Allah",
-        channel: "Official LP3IA",
-        duration: "42:15",
-        category: "Kitab Hikam",
-        description: "Penjelasan untaian hikmah dari Kitab Al-Hikam karya Ibnu Athaillah As-Sakandari mengenai konsep rida terhadap seluruh ketetapan takdir Allah.",
-        thumbnail: "https://img.youtube.com/vi/GVVauLw8fD0/hqdefault.jpg"
-    },
-    {
-        id: "81Bn_KrA3WI",
-        title: "Hikmah & Fiqih: Cara Menyikapi Perbedaan Pandangan Fiqih",
-        channel: "Official LP3IA",
-        duration: "28:10",
-        category: "Hikmah & Fiqih",
-        description: "Pandangan fiqih yang luwes dan logis khas Gus Baha dalam mengurai problematika fiqih sehari-hari dan bagaimana menyikapi perbedaan pandangan.",
-        thumbnail: "https://img.youtube.com/vi/81Bn_KrA3WI/hqdefault.jpg"
-    },
-    {
-        id: "m6yAZ4iEMpg",
-        title: "Umum: Beragama Secara Simpel dan Santai",
-        channel: "Official LP3IA",
-        duration: "25:40",
-        category: "Umum",
-        description: "Pentingnya beragama dengan cara yang menyenangkan, tidak mempersulit umat, serta bersikap moderat dalam berdakwah.",
-        thumbnail: "https://img.youtube.com/vi/m6yAZ4iEMpg/hqdefault.jpg"
-    },
-    {
-        id: "4Qiiv22YlLs",
-        title: "Tafsir Jalalain: Tafsir Ayat-Ayat Syukur dan Sabar",
-        channel: "Official LP3IA",
-        duration: "51:04",
-        category: "Tafsir Jalalain",
-        description: "Kajian tafsir surah-surah Al-Qur'an, menelusuri bagaimana Allah menggambarkan karakter hamba yang sabar dan pandai bersyukur.",
-        thumbnail: "https://img.youtube.com/vi/4Qiiv22YlLs/hqdefault.jpg"
-    },
-    {
-        id: "zBu_4PofhBI",
-        title: "Kitab Hikam: Hakikat Rezeki dan Keberkahan Hidup",
-        channel: "Official LP3IA",
-        duration: "36:18",
-        category: "Kitab Hikam",
-        description: "Menjelaskan esensi rezeki menurut kacamata tasawuf, di mana rezeki batiniah berupa ketenangan hati jauh lebih utama dibanding materi semata.",
-        thumbnail: "https://img.youtube.com/vi/zBu_4PofhBI/hqdefault.jpg"
-    }
+  {
+    "id": "lo_Fedw62vE",
+    "title": "Tafsir Jalalain: Kenapa Banyak Orang Tidak Bahagia?",
+    "channel": "Official LP3IA",
+    "duration": "34:52",
+    "category": "Tafsir Al-Qur'an",
+    "description": "Kajian mendalam Kitab Tafsir Jalalain bersama Gus Baha mengenai cara-cara menyikapi cobaan dan menghadirkan rasa syukur agar hidup selalu bahagia.",
+    "thumbnail": "https://img.youtube.com/vi/lo_Fedw62vE/hqdefault.jpg"
+  },
+  {
+    "id": "4Qiiv22YlLs",
+    "title": "Tafsir Jalalain: Tafsir Ayat-Ayat Syukur dan Sabar",
+    "channel": "Official LP3IA",
+    "duration": "51:04",
+    "category": "Tafsir Al-Qur'an",
+    "description": "Kajian tafsir surah-surah Al-Qur'an, menelusuri bagaimana Allah menggambarkan karakter hamba yang sabar dan pandai bersyukur.",
+    "thumbnail": "https://img.youtube.com/vi/4Qiiv22YlLs/hqdefault.jpg"
+  },
+  {
+    "id": "0k5F-8K_sI4",
+    "title": "Ngaji Bareng Gus Baha: Peluncuran Ulang Al-Qur'an dan Terjemahan Kemenag",
+    "channel": "Official LP3IA",
+    "duration": "45:12",
+    "category": "Tafsir Al-Qur'an",
+    "description": "Kajian spesial dalam peluncuran ulang Al-Qur'an terjemahan Kemenag RI, membahas metodologi pemahaman ayat suci secara kontekstual.",
+    "thumbnail": "https://img.youtube.com/vi/0k5F-8K_sI4/hqdefault.jpg"
+  },
+  {
+    "id": "-MRXL2aS2io",
+    "title": "Tafsir Al-Qur'an: Ayat-Ayat Pilihan yang Penuh Rahmat",
+    "channel": "Santri Gayeng",
+    "duration": "25:30",
+    "category": "Tafsir Al-Qur'an",
+    "description": "Menguraikan beberapa ayat pilihan yang menyejukkan hati dan menunjukkan betapa luasnya kasih sayang dan ampunan Allah SWT.",
+    "thumbnail": "https://img.youtube.com/vi/-MRXL2aS2io/hqdefault.jpg"
+  },
+  {
+    "id": "GVVauLw8fD0",
+    "title": "Kitab Hikam: Konsep Rida terhadap Takdir Allah",
+    "channel": "Official LP3IA",
+    "duration": "42:15",
+    "category": "Kitab Tasawuf",
+    "description": "Penjelasan untaian hikmah dari Kitab Al-Hikam karya Ibnu Athaillah As-Sakandari mengenai konsep rida terhadap seluruh ketetapan takdir Allah.",
+    "thumbnail": "https://img.youtube.com/vi/GVVauLw8fD0/hqdefault.jpg"
+  },
+  {
+    "id": "zBu_4PofhBI",
+    "title": "Kitab Hikam: Hakikat Rezeki dan Keberkahan Hidup",
+    "channel": "Official LP3IA",
+    "duration": "36:18",
+    "category": "Kitab Tasawuf",
+    "description": "Menjelaskan esensi rezeki menurut kacamata tasawuf, di mana rezeki batiniah berupa ketenangan hati jauh lebih utama dibanding materi semata.",
+    "thumbnail": "https://img.youtube.com/vi/zBu_4PofhBI/hqdefault.jpg"
+  },
+  {
+    "id": "_6D1hs1mEY8",
+    "title": "Kitab Hikam: Ibadah Selama Apapun Tak Akan Cukup untuk Beli Surga",
+    "channel": "Official LP3IA",
+    "duration": "38:40",
+    "category": "Kitab Tasawuf",
+    "description": "Kajian mendalam tentang hakikat ibadah dan rahmat Allah SWT. Gus Baha menjelaskan secara logis mengapa surga diperoleh karena rahmat-Nya.",
+    "thumbnail": "https://img.youtube.com/vi/_6D1hs1mEY8/hqdefault.jpg"
+  },
+  {
+    "id": "zqnHe1Ru4Hc",
+    "title": "Kitab Hikam: Cara Ber-Nego dengan Tuhan dalam Doa",
+    "channel": "Santri Gayeng",
+    "duration": "30:15",
+    "category": "Kitab Tasawuf",
+    "description": "Menjelaskan bab kepasrahan dan pengharapan dalam berdoa kepada Allah, berdasar ajaran para wali di Kitab Hikam.",
+    "thumbnail": "https://img.youtube.com/vi/zqnHe1Ru4Hc/hqdefault.jpg"
+  },
+  {
+    "id": "81Bn_KrA3WI",
+    "title": "Hikmah & Fiqih: Cara Menyikapi Perbedaan Pandangan Fiqih",
+    "channel": "Official LP3IA",
+    "duration": "28:10",
+    "category": "Fiqih & Hukum",
+    "description": "Pandangan fiqih yang luwes dan logis khas Gus Baha dalam mengurai problematika fiqih sehari-hari dan bagaimana menyikapi perbedaan pandangan.",
+    "thumbnail": "https://img.youtube.com/vi/81Bn_KrA3WI/hqdefault.jpg"
+  },
+  {
+    "id": "DH2Ksi6E6iY",
+    "title": "Fiqih Logika: Hubungan Sifat Mendengar dan Mengetahui",
+    "channel": "Santri Gayeng",
+    "duration": "35:10",
+    "category": "Fiqih & Hukum",
+    "description": "Diskusi teologis dan fiqih mengenai sifat-sifat wajib bagi Allah dan implementasinya dalam keyakinan tauhid yang kokoh.",
+    "thumbnail": "https://img.youtube.com/vi/DH2Ksi6E6iY/hqdefault.jpg"
+  },
+  {
+    "id": "x744J85iY8w",
+    "title": "Fiqih Sosial: Bukti Nyata Islam Bukan Cuma Milik Orang Arab!",
+    "channel": "Official LP3IA",
+    "duration": "29:30",
+    "category": "Fiqih & Hukum",
+    "description": "Kajian tentang universalitas hukum Islam yang adaptif dengan tradisi lokal nusantara selama tidak melanggar syariat inti.",
+    "thumbnail": "https://img.youtube.com/vi/x744J85iY8w/hqdefault.jpg"
+  },
+  {
+    "id": "m6yAZ4iEMpg",
+    "title": "Ceramah Umum: Beragama Secara Simpel dan Santai",
+    "channel": "Official LP3IA",
+    "duration": "25:40",
+    "category": "Ceramah Umum",
+    "description": "Pentingnya beragama dengan cara yang menyenangkan, tidak mempersulit umat, serta bersikap moderat dalam berdakwah.",
+    "thumbnail": "https://img.youtube.com/vi/m6yAZ4iEMpg/hqdefault.jpg"
+  },
+  {
+    "id": "kYv_kHhH2Sg",
+    "title": "Logika Keimanan: Kebaikan Tanpa Tuhan & Menghadapi Tabiat Perempuan",
+    "channel": "Santri Gayeng",
+    "duration": "48:15",
+    "category": "Ceramah Umum",
+    "description": "Kajian penuh hikmah tentang logika keimanan dalam menjawab argumen ateisme, serta nasihat bijak membina rumah tangga islami yang harmonis.",
+    "thumbnail": "https://img.youtube.com/vi/kYv_kHhH2Sg/hqdefault.jpg"
+  },
+  {
+    "id": "c5ZEXh7feNw",
+    "title": "Dialog Ilmiah: Ngaji Penuh Humor Ilmiah bersama Prof. Quraish Shihab",
+    "channel": "Official LP3IA",
+    "duration": "1:15:30",
+    "category": "Ceramah Umum",
+    "description": "Pertemuan hangat dua ulama besar Indonesia, mendiskusikan khazanah tafsir, hukum Islam, dan dakwah ramah di era modern.",
+    "thumbnail": "https://img.youtube.com/vi/c5ZEXh7feNw/hqdefault.jpg"
+  },
+  {
+    "id": "d_2a5k3H6r0",
+    "title": "Tematik: Agar Hidup Mudah Bersyukur yang Benar",
+    "channel": "Official LP3IA",
+    "duration": "36:45",
+    "category": "Ceramah Umum",
+    "description": "Gus Baha menjabarkan seni bersyukur yang sesungguhnya secara teologis dan psikologis agar terhindar dari rasa dengki dan stres.",
+    "thumbnail": "https://img.youtube.com/vi/d_2a5k3H6r0/hqdefault.jpg"
+  },
+  {
+    "id": "2z-bqgloByU",
+    "title": "Tematik: Serius, Hal Sederhana Ini Bikin Masuk Surga",
+    "channel": "Santri Gayeng",
+    "duration": "22:15",
+    "category": "Ceramah Umum",
+    "description": "Kajian ringan dengan pesan mendalam bahwa jalan menuju surga itu luas dan dapat diraih lewat amalan-amalan kecil yang ikhlas.",
+    "thumbnail": "https://img.youtube.com/vi/2z-bqgloByU/hqdefault.jpg"
+  }
 ];
 
 // STATE APLIKASI
 let playlist = [];
 let filteredPlaylist = [];
-let currentVideoIndex = 0;
-let currentMode = "audio"; // Default audio-only mode
-let isPlayerReady = false;
-let progressUpdateInterval;
-
-// Konfigurasi Playlist Loops
-let isShuffle = false;
-let isLoop = false; // false = no loop, true = loop active track
+let categoriesList = [];
 
 // DOM ELEMENTS
-const playlistItemsContainer = document.getElementById("playlistItems");
+const lecturesGrid = document.getElementById("lecturesGrid");
 const videoCountBadge = document.getElementById("videoCountBadge");
 const searchInput = document.getElementById("searchInput");
 const clearSearchBtn = document.getElementById("clearSearchBtn");
-const categoryTabsContainer = document.getElementById("categoryTabs");
+const categoryTabs = document.getElementById("categoryTabs");
 
-// DOM PLAYER ELEMENTS
-const videoContainer = document.getElementById("videoContainer");
-const audioContainer = document.getElementById("audioContainer");
-const playerOverlay = document.getElementById("playerOverlay");
-const audioLabelTitle = document.getElementById("audioLabelTitle");
-const currentTrackTitle = document.getElementById("currentTrackTitle");
-const currentTrackChannel = document.getElementById("currentTrackChannel");
+// STATS DOM ELEMENTS
+const statTotalVids = document.getElementById("statTotalVids");
+const statTotalCats = document.getElementById("statTotalCats");
+const statLastUpdate = document.getElementById("statLastUpdate");
 
-const progressBar = document.getElementById("progressBar");
-const currentTimeLabel = document.getElementById("currentTimeLabel");
-const totalTimeLabel = document.getElementById("totalTimeLabel");
-
-const playBtn = document.getElementById("playBtn");
-const playIcon = document.getElementById("playIcon");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const shuffleBtn = document.getElementById("shuffleBtn");
-const loopBtn = document.getElementById("loopBtn");
-
-const volumeBar = document.getElementById("volumeBar");
-const volumeMuteBtn = document.getElementById("volumeMuteBtn");
-const volumeIcon = document.getElementById("volumeIcon");
-const volumeValue = document.getElementById("volumeValue");
-
-// MODAL ELEMENTS
+// ACTIONS DOM ELEMENTS
+const syncBtn = document.getElementById("syncBtn");
+const syncIcon = document.getElementById("syncIcon");
 const addVideoBtn = document.getElementById("addVideoBtn");
 const addVideoModal = document.getElementById("addVideoModal");
 const closeModalBtn = document.getElementById("closeModalBtn");
 const addVideoForm = document.getElementById("addVideoForm");
-
-// PWA INSTALL BUTTON
 const installPwaBtn = document.getElementById("installPwaBtn");
+const toastContainer = document.getElementById("toastContainer");
 
-// 2. YOUTUBE IFRAME API LOAD
-// Load YouTube Iframe Player API secara asinkron
-const tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-const firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+// 2. INITIAL DATA LOADING & SERVER SYNC
+async function loadInitialData(isSyncRequest = false) {
+  if (isSyncRequest && syncIcon) {
+    syncIcon.classList.add("rotating");
+    syncBtn.disabled = true;
+  }
 
-let ytPlayer;
-
-// Fungsi callback otomatis saat API YouTube siap
-window.onYouTubeIframeAPIReady = function() {
-    console.log("YouTube API is ready");
-    initPlayer();
-};
-
-function initPlayer() {
-    // Muat video pertama sebagai default cue
-    const defaultVideoId = playlist.length > 0 ? playlist[0].id : "X8vB4zO_B_Y";
+  // A. Muat data default bawaan
+  let serverList = [];
+  try {
+    // Tambahkan timestamp untuk menghindari caching peramban
+    const response = await fetch(`./lectures.json?t=${new Date().getTime()}`);
+    if (response.ok) {
+      serverList = await response.json();
+      console.log("Data ceramah berhasil dimuat dari server:", serverList.length);
+      
+      // Update info sinkronisasi terakhir
+      const today = new Date();
+      const timeString = today.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + " WIB";
+      localStorage.setItem("gusbaha_last_sync", timeString);
+      statLastUpdate.textContent = timeString;
+    } else {
+      throw new Error("Respon server bermasalah");
+    }
+  } catch (error) {
+    console.warn("Gagal memuat lectures.json, menggunakan data cadangan.", error);
+    serverList = [...DEFAULT_VIDEOS];
     
-    ytPlayer = new YT.Player('youtubePlayer', {
-        height: '100%',
-        width: '100%',
-        videoId: defaultVideoId,
-        playerVars: {
-            'playsinline': 1,
-            'controls': 0, // Kita buat panel kontrol premium kita sendiri
-            'rel': 0,
-            'showinfo': 0,
-            'modestbranding': 1,
-            'enablejsapi': 1
-        },
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange,
-            'onError': onPlayerError
-        }
+    // Set fallback time
+    if (!localStorage.getItem("gusbaha_last_sync")) {
+      statLastUpdate.textContent = "Offline (Lokal)";
+    } else {
+      statLastUpdate.textContent = localStorage.getItem("gusbaha_last_sync");
+    }
+  }
+
+  // B. Muat data kustom dari LocalStorage
+  const customStored = localStorage.getItem("gusbaha_custom_videos");
+  let customList = [];
+  if (customStored) {
+    try {
+      customList = JSON.parse(customStored);
+    } catch (e) {
+      console.error("Gagal membaca data LocalStorage:", e);
+    }
+  }
+
+  // C. Gabungkan keduanya secara unik berdasarkan Video ID
+  const allIds = new Set();
+  playlist = [];
+
+  // Pertama masukkan item server
+  serverList.forEach(vid => {
+    if (!allIds.has(vid.id)) {
+      allIds.add(vid.id);
+      playlist.push(vid);
+    }
+  });
+
+  // Kedua masukkan item kustom
+  customList.forEach(vid => {
+    if (!allIds.has(vid.id)) {
+      allIds.add(vid.id);
+      playlist.push(vid);
+    }
+  });
+
+  filteredPlaylist = [...playlist];
+
+  // D. Selesaikan UI state sinkronisasi
+  if (isSyncRequest) {
+    setTimeout(() => {
+      if (syncIcon) syncIcon.classList.remove("rotating");
+      syncBtn.disabled = false;
+      showToast("Koleksi Tautan Berhasil Diperbarui!");
+    }, 800);
+  }
+
+  // E. Hitung statistik & render
+  updateStats();
+  applyFilters();
+}
+
+// UPDATE STATISTIK KOLEKSI
+function updateStats() {
+  statTotalVids.textContent = playlist.length;
+  
+  // Hitung jumlah kategori unik
+  const cats = new Set();
+  playlist.forEach(vid => cats.add(vid.category));
+  statTotalCats.textContent = cats.size;
+  
+  const lastSync = localStorage.getItem("gusbaha_last_sync");
+  if (lastSync) {
+    statLastUpdate.textContent = lastSync;
+  } else {
+    statLastUpdate.textContent = "Baru Saja";
+  }
+}
+
+// 3. RENDERING KARTU GALERI LECTURES
+function renderGallery() {
+  lecturesGrid.innerHTML = "";
+  
+  if (filteredPlaylist.length === 0) {
+    lecturesGrid.innerHTML = `
+      <div class="empty-state">
+        <i data-lucide="info" style="width: 48px; height: 48px; color: var(--clr-gold); opacity: 0.7;"></i>
+        <p>Ceramah Gus Baha tidak ditemukan. Coba gunakan filter atau kata kunci pencarian lain.</p>
+      </div>
+    `;
+    videoCountBadge.textContent = "0 Video";
+    if (window.lucide) lucide.createIcons();
+    return;
+  }
+  
+  videoCountBadge.textContent = `${filteredPlaylist.length} Video`;
+  
+  filteredPlaylist.forEach(video => {
+    const card = document.createElement("article");
+    card.className = "lecture-card";
+    
+    // Tautan youtube orisinil
+    const youtubeUrl = `https://www.youtube.com/watch?v=${video.id}`;
+    
+    card.innerHTML = `
+      <div class="card-thumb">
+        <img src="${video.thumbnail}" alt="Thumbnail ${video.title}" loading="lazy">
+        <span class="duration-badge">${video.duration}</span>
+        <div class="play-overlay">
+          <div class="play-circle">
+            <i data-lucide="play" style="fill: var(--bg-deepest); stroke: none;"></i>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-cat-badge">${video.category}</span>
+          <span class="card-channel">${video.channel}</span>
+        </div>
+        <h3 class="card-title">${video.title}</h3>
+        <p class="card-desc">${video.description}</p>
+        <div class="card-actions">
+          <a href="${youtubeUrl}" target="_blank" rel="noopener" class="listen-btn" title="Dengarkan di YouTube">
+            <i data-lucide="external-link"></i>
+            <span>Dengarkan</span>
+          </a>
+          <button class="share-btn" title="Salin Tautan Video">
+            <i data-lucide="copy"></i>
+            <span>Salin</span>
+          </button>
+        </div>
+      </div>
+    `;
+    
+    // Event listener untuk tombol "Salin"
+    const shareBtn = card.querySelector(".share-btn");
+    shareBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      navigator.clipboard.writeText(youtubeUrl).then(() => {
+        showToast("Tautan YouTube berhasil disalin!");
+      }).catch(err => {
+        // Fallback jika Clipboard API gagal
+        const tempInput = document.createElement("input");
+        tempInput.value = youtubeUrl;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+        showToast("Tautan YouTube berhasil disalin!");
+      });
     });
-}
 
-function hidePlayerOverlay() {
-    if (playerOverlay) {
-        playerOverlay.style.opacity = '0';
-        setTimeout(() => {
-            playerOverlay.style.display = 'none';
-            // Restore default loading spinner structure for next track loads
-            playerOverlay.innerHTML = `
-                <div class="spinner"></div>
-                <p>Menyiapkan Aliran Video...</p>
-            `;
-        }, 500);
-    }
-}
-
-function showPlayerError(message) {
-    if (playerOverlay) {
-        playerOverlay.style.display = 'flex';
-        playerOverlay.style.opacity = '1';
-        playerOverlay.innerHTML = `
-            <i data-lucide="alert-triangle" style="width: 48px; height: 48px; color: var(--clr-gold);"></i>
-            <p style="text-align: center; padding: 0 1rem; margin-top: 10px; font-weight: 600;">${message}</p>
-        `;
-        if (window.lucide) {
-            lucide.createIcons();
-        }
-    }
-}
-
-function onPlayerReady(event) {
-    isPlayerReady = true;
-    hidePlayerOverlay();
-    
-    // Set volume default
-    ytPlayer.setVolume(volumeBar.value);
-    
-    // Sinkronisasi data awal trek aktif
-    updateActiveTrackUI();
-    
-    console.log("YouTube Player is ready");
-}
-
-function onPlayerStateChange(event) {
-    const audioScreen = document.getElementById("audioContainer");
-    
-    if (event.data === YT.PlayerState.PLAYING) {
-        hidePlayerOverlay();
-        playIcon.setAttribute("data-lucide", "pause");
-        lucide.createIcons();
-        
-        audioScreen.classList.add("playing");
-        startProgressTracking();
-        updateMediaSessionState("playing");
-    } else {
-        playIcon.setAttribute("data-lucide", "play");
-        lucide.createIcons();
-        
-        audioScreen.classList.remove("playing");
-        stopProgressTracking();
-        
-        if (event.data === YT.PlayerState.PAUSED) {
-            updateMediaSessionState("paused");
-        } else if (event.data === YT.PlayerState.ENDED) {
-            handleTrackEnded();
-        }
-    }
-}
-
-function onPlayerError(event) {
-    console.error("YouTube Player Error:", event.data);
-    let errorMsg = "Gagal memuat video YouTube. Pastikan koneksi internet aktif.";
-    if (event.data === 101 || event.data === 150) {
-        errorMsg = "Pemilik video melarang pemutaran di luar YouTube (Embedding dinonaktifkan).";
-    } else if (event.data === 100) {
-        errorMsg = "Video tidak ditemukan atau telah dihapus.";
-    } else if (event.data === 2) {
-        errorMsg = "Format ID Video YouTube tidak valid.";
-    }
-    showPlayerError(errorMsg);
-}
-
-// 3. LOGIKA PEMUTAR & SINKRONISASI
-function playTrack(index) {
-    if (!isPlayerReady || playlist.length === 0) return;
-    
-    if (index < 0) index = playlist.length - 1;
-    if (index >= playlist.length) index = 0;
-    
-    currentVideoIndex = index;
-    const track = playlist[currentVideoIndex];
-    
-    // Show loading overlay
-    if (playerOverlay) {
-        playerOverlay.style.display = 'flex';
-        playerOverlay.style.opacity = '1';
-    }
-    
-    // Load & mainkan video
-    ytPlayer.loadVideoById(track.id);
-    
-    // Update tampilan aktif
-    updateActiveTrackUI();
-    setupMediaSession(track);
-}
-
-function togglePlay() {
-    if (!isPlayerReady) return;
-    
-    const state = ytPlayer.getPlayerState();
-    if (state === YT.PlayerState.PLAYING) {
-        ytPlayer.pauseVideo();
-    } else {
-        ytPlayer.playVideo();
-    }
-}
-
-function handleTrackEnded() {
-    if (isLoop) {
-        // Ulangi video yang sama
-        ytPlayer.seekTo(0);
-        ytPlayer.playVideo();
-    } else if (isShuffle) {
-        // Pilih acak indeks video berikutnya
-        const randomIndex = Math.floor(Math.random() * playlist.length);
-        playTrack(randomIndex);
-    } else {
-        // Putar trek berikutnya
-        playTrack(currentVideoIndex + 1);
-    }
-}
-
-// SINKRONISASI PROGRESS BAR & WAKTU
-function startProgressTracking() {
-    stopProgressTracking();
-    progressUpdateInterval = setInterval(() => {
-        if (!isPlayerReady) return;
-        
-        const currentTime = ytPlayer.getCurrentTime() || 0;
-        const duration = ytPlayer.getDuration() || 0;
-        
-        // Update label waktu
-        currentTimeLabel.textContent = formatTime(currentTime);
-        totalTimeLabel.textContent = formatTime(duration);
-        
-        // Update slider progress
-        if (duration > 0) {
-            const percentage = (currentTime / duration) * 100;
-            progressBar.value = percentage;
-        } else {
-            progressBar.value = 0;
-        }
-        
-        // Update media session position state jika didukung
-        if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession) {
-            try {
-                navigator.mediaSession.setPositionState({
-                    duration: duration,
-                    playbackRate: 1,
-                    position: currentTime
-                });
-            } catch (e) {
-                // Abaikan jika ada galat durasi tidak sinkron
-            }
-        }
-    }, 500);
-}
-
-function stopProgressTracking() {
-    if (progressUpdateInterval) {
-        clearInterval(progressUpdateInterval);
-    }
-}
-
-function formatTime(seconds) {
-    if (isNaN(seconds) || seconds === null) return "00:00";
-    const minutes = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    const displayMins = minutes < 10 ? "0" + minutes : minutes;
-    const displaySecs = secs < 10 ? "0" + secs : secs;
-    return `${displayMins}:${displaySecs}`;
-}
-
-// 4. METODE MEDIA SESSION API (Dukungan Pemutaran Latar Belakang & Lockscreen)
-function setupMediaSession(track) {
-    if ('mediaSession' in navigator) {
-        console.log("Setting up Media Session API for:", track.title);
-        
-        navigator.mediaSession.metadata = new MediaMetadata({
-            title: track.title,
-            artist: "KH Bahauddin Nursalim (Gus Baha)",
-            album: "Pengajian Resmi LP3IA",
-            artwork: [
-                { src: track.thumbnail, sizes: '480x360', type: 'image/jpeg' },
-                { src: './icon-192.png', sizes: '192x192', type: 'image/png' },
-                { src: './icon-512.png', sizes: '512x512', type: 'image/png' }
-            ]
-        });
-
-        // Kontrol Lockscreen / Tray Sistem
-        navigator.mediaSession.setActionHandler('play', () => {
-            ytPlayer.playVideo();
-        });
-        
-        navigator.mediaSession.setActionHandler('pause', () => {
-            ytPlayer.pauseVideo();
-        });
-        
-        navigator.mediaSession.setActionHandler('previoustrack', () => {
-            playTrack(currentVideoIndex - 1);
-        });
-        
-        navigator.mediaSession.setActionHandler('nexttrack', () => {
-            playTrack(currentVideoIndex + 1);
-        });
-
-        navigator.mediaSession.setActionHandler('seekto', (details) => {
-            if (details.fastSeek && ytPlayer.seekTo) {
-                ytPlayer.seekTo(details.seekTime, true);
-            } else if (ytPlayer.seekTo) {
-                ytPlayer.seekTo(details.seekTime, true);
-            }
-        });
-    }
-}
-
-function updateMediaSessionState(state) {
-    if ('mediaSession' in navigator) {
-        navigator.mediaSession.playbackState = state;
-    }
-}
-
-// 5. MODUL ANTARMUKA (TABS, LISTS, MODAL)
-function updateActiveTrackUI() {
-    if (playlist.length === 0) return;
-    
-    const track = playlist[currentVideoIndex];
-    
-    // Label teks aktif
-    currentTrackTitle.textContent = track.title;
-    currentTrackChannel.textContent = `Kanal: ${track.channel} | Kategori: ${track.category}`;
-    audioLabelTitle.textContent = track.title;
-    
-    // Hapus tanda aktif dari playlist list lama, tambahkan pada yang baru
-    const items = playlistItemsContainer.querySelectorAll('.video-item');
-    items.forEach((item, index) => {
-        if (index === currentVideoIndex) {
-            item.classList.add('active');
-            item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        } else {
-            item.classList.remove('active');
-        }
-    });
-}
-
-// Mode switching is disabled in this audio-only version
-
-function renderPlaylist() {
-    playlistItemsContainer.innerHTML = "";
-    
-    if (filteredPlaylist.length === 0) {
-        playlistItemsContainer.innerHTML = `
-            <div class="playlist-loading">
-                <i data-lucide="alert-circle" style="width: 32px; height: 32px;"></i>
-                <p>Kajian tidak ditemukan.</p>
-            </div>
-        `;
-        videoCountBadge.textContent = "0 Video";
-        lucide.createIcons();
-        return;
-    }
-    
-    videoCountBadge.textContent = `${filteredPlaylist.length} Video`;
-    
-    filteredPlaylist.forEach((video, idx) => {
-        // Tentukan index asli dalam playlist induk untuk navigasi putar
-        const originalIndex = playlist.findIndex(v => v.id === video.id);
-        
-        const videoElement = document.createElement("div");
-        videoElement.className = "video-item";
-        if (originalIndex === currentVideoIndex) {
-            videoElement.classList.add("active");
-        }
-        
-        videoElement.innerHTML = `
-            <div class="thumb-wrapper">
-                <img src="${video.thumbnail}" alt="Thumbnail">
-                <span class="duration-badge">${video.duration}</span>
-            </div>
-            <div class="item-meta">
-                <h4>${video.title}</h4>
-                <div class="channel-name">${video.channel}</div>
-                <div class="badge-row">
-                    <span class="cat-badge">${video.category}</span>
-                </div>
-            </div>
-        `;
-        
-        videoElement.addEventListener("click", () => {
-            playTrack(originalIndex);
-        });
-        
-        playlistItemsContainer.appendChild(videoElement);
+    // Klik pada thumbnail atau kartu juga langsung membuka YouTube
+    const thumbArea = card.querySelector(".card-thumb");
+    const titleArea = card.querySelector(".card-title");
+    [thumbArea, titleArea].forEach(elem => {
+      elem.addEventListener("click", () => {
+        window.open(youtubeUrl, "_blank", "noopener");
+      });
     });
     
+    lecturesGrid.appendChild(card);
+  });
+  
+  if (window.lucide) {
     lucide.createIcons();
+  }
 }
 
+// 4. FILTERING & LIVE SEARCH
 function handleSearch() {
-    const query = searchInput.value.trim().toLowerCase();
-    
-    if (query.length > 0) {
-        clearSearchBtn.style.display = "block";
-    } else {
-        clearSearchBtn.style.display = "none";
-    }
-    
-    applyFilters();
+  const query = searchInput.value.trim().toLowerCase();
+  
+  if (query.length > 0) {
+    clearSearchBtn.style.display = "block";
+  } else {
+    clearSearchBtn.style.display = "none";
+  }
+  
+  applyFilters();
 }
 
 function applyFilters() {
-    const query = searchInput.value.trim().toLowerCase();
-    const activeTab = categoryTabsContainer.querySelector('.cat-btn.active');
-    const selectedCategory = activeTab ? activeTab.getAttribute('data-category') : 'all';
+  const query = searchInput.value.trim().toLowerCase();
+  const activeTab = categoryTabs.querySelector('.cat-btn.active');
+  const selectedCategory = activeTab ? activeTab.getAttribute('data-category') : 'all';
+  
+  filteredPlaylist = playlist.filter(video => {
+    const matchesQuery = video.title.toLowerCase().includes(query) || 
+                         video.description.toLowerCase().includes(query);
+                         
+    // Jika Kategori Kustom / Tautan Anda dipilih
+    if (selectedCategory === "Kustom / Muhibbin") {
+      return matchesQuery && video.channel === "Kustom / Muhibbin";
+    }
     
-    filteredPlaylist = playlist.filter(video => {
-        const matchesQuery = video.title.toLowerCase().includes(query) || 
-                             video.description.toLowerCase().includes(query);
-        const matchesCategory = selectedCategory === "all" || video.category === selectedCategory;
-        
-        return matchesQuery && matchesCategory;
-    });
-    
-    renderPlaylist();
+    const matchesCategory = selectedCategory === "all" || video.category === selectedCategory;
+    return matchesQuery && matchesCategory;
+  });
+  
+  renderGallery();
 }
 
-// 6. MANAJEMEN INPUT VIDEO BARU (LOCAL STORAGE)
+// 5. INPUT VIDEO BARU (LOCAL STORAGE)
 function extractYouTubeId(url) {
-    // Regex pendeteksi ID YouTube standar
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    const match = url.match(regExp);
-    
-    if (match && match[2].length === 11) {
-        return match[2];
-    } else if (url.trim().length === 11) {
-        return url.trim(); // User menginputkan langsung Video ID
-    }
-    return null;
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  
+  if (match && match[2].length === 11) {
+    return match[2];
+  } else if (url.trim().length === 11) {
+    return url.trim();
+  }
+  return null;
 }
 
-function handleAddVideo(e) {
-    const urlInput = document.getElementById("videoUrl").value.trim();
-    const titleInput = document.getElementById("videoTitle").value.trim();
-    const catInput = document.getElementById("videoCategory").value;
-    const descInput = document.getElementById("videoDescription").value.trim();
-    
-    const videoId = extractYouTubeId(urlInput);
-    
-    if (!videoId) {
-        alert("Tautan YouTube atau Video ID tidak valid! Harap masukkan format link yang benar.");
-        return;
-    }
-    
-    // Cek apakah video sudah terdaftar
-    if (playlist.some(v => v.id === videoId)) {
-        alert("Video ini sudah terdaftar di dalam playlist!");
-        return;
-    }
-    
-    const newVideo = {
-        id: videoId,
-        title: titleInput,
-        channel: "Kustom / Muhibbin",
-        duration: "00:00", // Default dummy duration, YouTube API will load stream info
-        category: catInput,
-        description: descInput || "Video pengajian tambahan yang diinput oleh pengguna.",
-        thumbnail: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
-    };
-    
-    // Tambahkan ke array dan simpan ke LocalStorage
-    playlist.push(newVideo);
-    localStorage.setItem("gusbaha_custom_videos", JSON.stringify(playlist.filter(v => v.channel === "Kustom / Muhibbin")));
-    
-    // Reset Form & Tutup Modal
-    addVideoForm.reset();
-    addVideoModal.classList.remove("open");
-    
-    // Re-render
-    applyFilters();
-    alert("Pengajian baru berhasil ditambahkan!");
-    
-    // Mainkan langsung video yang baru ditambahkan
-    playTrack(playlist.length - 1);
+function handleAddVideo() {
+  const urlInput = document.getElementById("videoUrl").value.trim();
+  const titleInput = document.getElementById("videoTitle").value.trim();
+  const catInput = document.getElementById("videoCategory").value;
+  const descInput = document.getElementById("videoDescription").value.trim();
+  
+  const videoId = extractYouTubeId(urlInput);
+  
+  if (!videoId) {
+    alert("Tautan YouTube atau Video ID tidak valid! Harap masukkan format link yang benar.");
+    return;
+  }
+  
+  // Cek duplikasi
+  if (playlist.some(v => v.id === videoId)) {
+    alert("Video ini sudah terdaftar di dalam playlist!");
+    return;
+  }
+  
+  const newVideo = {
+    id: videoId,
+    title: titleInput,
+    channel: "Kustom / Muhibbin",
+    duration: "00:00", // Default dummy duration
+    category: catInput,
+    description: descInput || "Tautan pengajian tambahan yang dimasukkan secara lokal oleh pengguna.",
+    thumbnail: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+  };
+  
+  // Simpan ke array
+  playlist.push(newVideo);
+  
+  // Dapatkan video custom lama untuk di-merge ke LocalStorage
+  const customStored = localStorage.getItem("gusbaha_custom_videos");
+  let customList = [];
+  if (customStored) {
+    try {
+      customList = JSON.parse(customStored);
+    } catch(e) {}
+  }
+  customList.push(newVideo);
+  localStorage.setItem("gusbaha_custom_videos", JSON.stringify(customList));
+  
+  // Reset Form & Tutup Modal
+  addVideoForm.reset();
+  addVideoModal.classList.remove("open");
+  
+  // Re-render
+  updateStats();
+  applyFilters();
+  showToast("Pengajian baru berhasil ditambahkan!");
 }
 
-function loadInitialData() {
-    // Muat data custom dari LocalStorage jika ada
-    const customStored = localStorage.getItem("gusbaha_custom_videos");
-    let customList = [];
-    
-    if (customStored) {
-        try {
-            customList = JSON.parse(customStored);
-        } catch (e) {
-            console.error("Gagal membaca LocalStorage:", e);
-        }
-    }
-    
-    // Gabungkan default dengan custom list
-    playlist = [...DEFAULT_VIDEOS, ...customList];
-    filteredPlaylist = [...playlist];
+// 6. UTILITIES (TOAST NOTIFICATIONS)
+function showToast(message) {
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.innerHTML = `
+    <i data-lucide="check-circle" style="color: var(--clr-gold); width: 20px; height: 20px;"></i>
+    <span>${message}</span>
+  `;
+  
+  toastContainer.appendChild(toast);
+  if (window.lucide) lucide.createIcons();
+  
+  // Animate in
+  setTimeout(() => {
+    toast.classList.add("show");
+  }, 10);
+  
+  // Animate out
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => {
+      toast.remove();
+    }, 300);
+  }, 3000);
 }
 
 // 7. EVENT LISTENERS SETUP
 function setupEventListeners() {
-    // Mode selector tabs removed in audio-only version
+  // Live Search Input
+  searchInput.addEventListener('input', handleSearch);
+  
+  // Tombol Hapus Input Pencarian
+  clearSearchBtn.addEventListener('click', () => {
+    searchInput.value = "";
+    clearSearchBtn.style.display = "none";
+    searchInput.focus();
+    applyFilters();
+  });
+  
+  // Filter Kategori
+  categoryTabs.addEventListener('click', (e) => {
+    const clickedBtn = e.target.closest('.cat-btn');
+    if (!clickedBtn) return;
     
-    // Search Bar Input
-    searchInput.addEventListener('input', handleSearch);
+    categoryTabs.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+    clickedBtn.classList.add('active');
     
-    // Clear Search Input Button
-    clearSearchBtn.addEventListener('click', () => {
-        searchInput.value = "";
-        clearSearchBtn.style.display = "none";
-        searchInput.focus();
-        applyFilters();
-    });
-    
-    // Category Tab Filters
-    categoryTabsContainer.addEventListener('click', (e) => {
-        const clickedBtn = e.target.closest('.cat-btn');
-        if (!clickedBtn) return;
-        
-        categoryTabsContainer.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-        clickedBtn.classList.add('active');
-        
-        applyFilters();
-    });
-    
-    // Controls: Play / Pause
-    playBtn.addEventListener('click', togglePlay);
-    
-    // Controls: Next & Prev
-    nextBtn.addEventListener('click', () => {
-        if (isShuffle) {
-            const randomIndex = Math.floor(Math.random() * playlist.length);
-            playTrack(randomIndex);
-        } else {
-            playTrack(currentVideoIndex + 1);
-        }
-    });
-    
-    prevBtn.addEventListener('click', () => {
-        playTrack(currentVideoIndex - 1);
-    });
-    
-    // Controls: Shuffle Toggle
-    shuffleBtn.addEventListener('click', () => {
-        isShuffle = !isShuffle;
-        shuffleBtn.classList.toggle('active', isShuffle);
-    });
-    
-    // Controls: Loop Single Track Toggle
-    loopBtn.addEventListener('click', () => {
-        isLoop = !isLoop;
-        loopBtn.classList.toggle('active', isLoop);
-    });
-    
-    // Volume Control Actions
-    volumeBar.addEventListener('input', (e) => {
-        const val = e.target.value;
-        volumeValue.textContent = `${val}%`;
-        
-        if (isPlayerReady) {
-            ytPlayer.setVolume(val);
-            if (ytPlayer.isMuted() && val > 0) {
-                ytPlayer.unMute();
-                updateVolumeIcon(false);
-            } else if (val == 0) {
-                updateVolumeIcon(true);
-            } else {
-                updateVolumeIcon(false);
-            }
-        }
-    });
-    
-    volumeMuteBtn.addEventListener('click', () => {
-        if (!isPlayerReady) return;
-        
-        const isMuted = ytPlayer.isMuted();
-        if (isMuted) {
-            ytPlayer.unMute();
-            ytPlayer.setVolume(volumeBar.value);
-            updateVolumeIcon(false);
-        } else {
-            ytPlayer.mute();
-            updateVolumeIcon(true);
-        }
-    });
-    
-    function updateVolumeIcon(muted) {
-        if (muted) {
-            volumeIcon.setAttribute("data-lucide", "volume-x");
-        } else {
-            const val = volumeBar.value;
-            if (val < 30) {
-                volumeIcon.setAttribute("data-lucide", "volume");
-            } else if (val < 70) {
-                volumeIcon.setAttribute("data-lucide", "volume-1");
-            } else {
-                volumeIcon.setAttribute("data-lucide", "volume-2");
-            }
-        }
-        lucide.createIcons();
+    applyFilters();
+  });
+  
+  // Sinkronisasi Manual
+  syncBtn.addEventListener('click', () => {
+    loadInitialData(true);
+  });
+  
+  // Modal Buka & Tutup
+  addVideoBtn.addEventListener('click', () => {
+    addVideoModal.classList.add('open');
+  });
+  
+  closeModalBtn.addEventListener('click', () => {
+    addVideoModal.classList.remove('open');
+  });
+  
+  addVideoModal.addEventListener('click', (e) => {
+    if (e.target === addVideoModal) {
+      addVideoModal.classList.remove('open');
     }
-    
-    // Drag Progress Bar to Seek
-    progressBar.addEventListener('input', (e) => {
-        if (!isPlayerReady) return;
-        
-        const percentage = e.target.value;
-        const duration = ytPlayer.getDuration() || 0;
-        const targetSeconds = (percentage / 100) * duration;
-        
-        // Seek ke detik target, keep playing state
-        ytPlayer.seekTo(targetSeconds, true);
-        currentTimeLabel.textContent = formatTime(targetSeconds);
-    });
-    
-    // Modal Open & Close events
-    addVideoBtn.addEventListener('click', () => {
-        addVideoModal.classList.add('open');
-    });
-    
-    closeModalBtn.addEventListener('click', () => {
-        addVideoModal.classList.remove('open');
-    });
-    
-    addVideoModal.addEventListener('click', (e) => {
-        if (e.target === addVideoModal) {
-            addVideoModal.classList.remove('open');
-        }
-    });
-    
-    addVideoForm.addEventListener('submit', handleAddVideo);
+  });
+  
+  addVideoForm.addEventListener('submit', handleAddVideo);
 }
 
-// 8. PWA SERVICE WORKER & TOMBOL INSTALASI APLIKASI
+// 8. PWA SERVICE WORKER & TOMBOL INSTALASI
 function setupPwa() {
-    // Registrasi Service Worker
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js')
-                .then((reg) => console.log('PWA ServiceWorker registered with scope:', reg.scope))
-                .catch((err) => console.error('PWA ServiceWorker registration failed:', err));
-        });
-    }
-
-    // Tombol Install Aplikasi Seluler/Dekstop
-    let deferredPrompt;
-    
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        
-        if (installPwaBtn) {
-            installPwaBtn.style.display = 'inline-flex';
-            if (window.lucide) lucide.createIcons();
-        }
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then((reg) => console.log('PWA ServiceWorker registered. Scope:', reg.scope))
+        .catch((err) => console.error('PWA ServiceWorker registration failed:', err));
     });
+  }
 
+  // Menangani Instalasi Aplikasi
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
     if (installPwaBtn) {
-        installPwaBtn.addEventListener('click', async () => {
-            if (!deferredPrompt) return;
-            
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log(`PWA Install Choice Outcome: ${outcome}`);
-            
-            deferredPrompt = null;
-            installPwaBtn.style.display = 'none';
-        });
+      installPwaBtn.style.display = 'inline-flex';
+      if (window.lucide) lucide.createIcons();
     }
+  });
 
-    window.addEventListener('appinstalled', () => {
-        console.log('PWA Muhibbin Gus Baha installed successfully');
-        if (installPwaBtn) installPwaBtn.style.display = 'none';
-        deferredPrompt = null;
+  if (installPwaBtn) {
+    installPwaBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`PWA Install Choice Outcome: ${outcome}`);
+      
+      deferredPrompt = null;
+      installPwaBtn.style.display = 'none';
     });
+  }
+
+  window.addEventListener('appinstalled', () => {
+    console.log('PWA Muhibbin Gus Baha installed successfully');
+    if (installPwaBtn) installPwaBtn.style.display = 'none';
+    deferredPrompt = null;
+  });
 }
 
-// KICKSTART PORTAL APLIKASI
+// INIASIALISASI APLIKASI
 document.addEventListener("DOMContentLoaded", () => {
-    loadInitialData();
-    setupEventListeners();
-    renderPlaylist();
-    setupPwa();
-    
-    // Inisialisasi ikon Lucide
-    if (window.lucide) {
-        lucide.createIcons();
-    }
+  setupEventListeners();
+  loadInitialData();
+  setupPwa();
+  
+  if (window.lucide) {
+    lucide.createIcons();
+  }
 });
