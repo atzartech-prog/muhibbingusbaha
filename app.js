@@ -419,12 +419,12 @@ function switchMode(mode) {
         }
     });
     
-    // Sembunyikan/Tampilkan container pemutar
+    // Sembunyikan/Tampilkan container pemutar secara aman
     if (mode === "video") {
-        videoContainer.style.display = "block";
+        videoContainer.classList.remove("hidden-audio-mode");
         audioContainer.style.display = "none";
     } else {
-        videoContainer.style.display = "none";
+        videoContainer.classList.add("hidden-audio-mode");
         audioContainer.style.display = "flex";
         
         // Pastikan visualizer aktif berputar jika sedang memutar audio

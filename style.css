@@ -283,6 +283,18 @@ body {
     position: relative;
 }
 
+.video-container.hidden-audio-mode {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    width: 250px;
+    height: 250px;
+    opacity: 0.001;
+    pointer-events: none;
+    z-index: -10;
+}
+
+
 .video-container iframe,
 #youtubePlayer {
     width: 100%;
