@@ -67,20 +67,10 @@
             <!-- Player Board Column -->
             <section class="player-column">
                 <div class="player-card">
-                    <!-- Player Tabs (Mode Selector) -->
-                    <div class="player-tabs">
-                        <button class="tab-btn active" data-mode="video">
-                            <i data-lucide="video"></i> Mode Video
-                        </button>
-                        <button class="tab-btn" data-mode="audio">
-                            <i data-lucide="headphones"></i> Mode Suara Saja
-                        </button>
-                    </div>
-
                     <!-- Screen Area -->
                     <div class="player-screen">
                         <!-- Video Display (YouTube Iframe) -->
-                        <div class="video-container" id="videoContainer">
+                        <div class="video-container hidden-audio-mode" id="videoContainer">
                             <div id="youtubePlayer"></div>
                             <!-- Overlay loading state -->
                             <div class="player-overlay" id="playerOverlay">
@@ -90,7 +80,7 @@
                         </div>
 
                         <!-- Audio Display (Rotating Cassette Tape & Visualizer) -->
-                        <div class="audio-container" id="audioContainer" style="display: none;">
+                        <div class="audio-container" id="audioContainer">
                             <div class="cassette-wrapper">
                                 <div class="cassette-tape">
                                     <div class="cassette-body">

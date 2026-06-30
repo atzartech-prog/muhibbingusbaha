@@ -1,6 +1,6 @@
-# 🕌 Muhibbin Gus Baha | Portal Audio & Video Pengajian Resmi (PWA)
+# 🕌 Muhibbin Gus Baha | Portal Audio Pengajian Resmi (PWA)
 
-Aplikasi portal web premium berbasis **Progressive Web App (PWA)** yang dirancang khusus untuk memutar video dan mendengarkan audio rekaman pengajian resmi dari **KH Bahauddin Nursalim (Gus Baha)**. Seluruh video dan aliran suara bersumber langsung dari kanal resmi YouTube seperti **Official LP3IA**.
+Aplikasi portal web premium berbasis **Progressive Web App (PWA)** yang dirancang khusus untuk mendengarkan rekaman audio pengajian resmi dari **KH Bahauddin Nursalim (Gus Baha)**. Seluruh aliran suara bersumber langsung dari kanal resmi YouTube seperti **Official LP3IA**.
 
 ---
 
@@ -8,8 +8,8 @@ Aplikasi portal web premium berbasis **Progressive Web App (PWA)** yang dirancan
 
 1.  **🛡️ Kepatuhan Hak Cipta (Copyright Compliant)**:
     Aplikasi ini menggunakan **YouTube Iframe Player API** resmi untuk memutar konten. Cara ini 100% legal, tidak melakukan penggandaan berkas video/audio, dan tetap menyalurkan lalu lintas tontonan (*views*) serta tayangan iklan kepada pemilik hak cipta resmi (Official LP3IA/kreator asli).
-2.  **🎧 Opsi Mode Suara Saja (Audio-Only Mode)**:
-    Tersedia opsi untuk mendengarkan kajian tanpa menampilkan video. Saat diaktifkan, video YouTube disembunyikan secara visual dan digantikan oleh antarmuka pemutar audio analog kaset pita yang berputar dengan visualisasi gelombang frekuensi yang dinamis. Posisi pemutaran (*playback time*) tersinkronisasi mulus ketika berpindah antara Mode Video dan Mode Suara.
+2.  **🎧 Versi Audio Saja (Dedicated Audio-Only)**:
+    Antarmuka aplikasi didesain khusus sebagai pemutar audio kaset analog pita berputar yang indah dengan visualisasi gelombang frekuensi dinamis, sementara pemutaran video YouTube tetap berjalan secara tersembunyi di latar belakang untuk mematuhi hak cipta tanpa memakan area layar utama.
 3.  **📶 Pemutaran Latar Belakang (Background Playback)**:
     Terintegrasi dengan **HTML5 Media Session API**. Saat aplikasi diposisikan di latar belakang, perangkat diminimalkan, atau layar ponsel terkunci, audio pengajian tetap dapat diputar dan dikendalikan langsung melalui menu tray notifikasi sistem atau layar kunci (*lockscreen*).
 4.  **📱 Dukungan PWA & Tombol Instalasi**:

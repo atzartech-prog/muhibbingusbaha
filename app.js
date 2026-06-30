@@ -66,7 +66,7 @@ const DEFAULT_VIDEOS = [
 let playlist = [];
 let filteredPlaylist = [];
 let currentVideoIndex = 0;
-let currentMode = "video"; // "video" atau "audio"
+let currentMode = "audio"; // Default audio-only mode
 let isPlayerReady = false;
 let progressUpdateInterval;
 
@@ -406,33 +406,7 @@ function updateActiveTrackUI() {
     });
 }
 
-function switchMode(mode) {
-    if (mode === currentMode) return;
-    currentMode = mode;
-    
-    // Toggle Tombol Tab
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        if (btn.getAttribute('data-mode') === mode) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
-    });
-    
-    // Sembunyikan/Tampilkan container pemutar secara aman
-    if (mode === "video") {
-        videoContainer.classList.remove("hidden-audio-mode");
-        audioContainer.style.display = "none";
-    } else {
-        videoContainer.classList.add("hidden-audio-mode");
-        audioContainer.style.display = "flex";
-        
-        // Pastikan visualizer aktif berputar jika sedang memutar audio
-        if (isPlayerReady && ytPlayer.getPlayerState() === YT.PlayerState.PLAYING) {
-            audioContainer.classList.add("playing");
-        }
-    }
-}
+// Mode switching is disabled in this audio-only version
 
 function renderPlaylist() {
     playlistItemsContainer.innerHTML = "";
@@ -592,13 +566,7 @@ function loadInitialData() {
 
 // 7. EVENT LISTENERS SETUP
 function setupEventListeners() {
-    // Mode Selector Tab Event
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const mode = btn.getAttribute('data-mode');
-            switchMode(mode);
-        });
-    });
+    // Mode selector tabs removed in audio-only version
     
     // Search Bar Input
     searchInput.addEventListener('input', handleSearch);
