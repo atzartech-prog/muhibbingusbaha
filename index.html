@@ -70,13 +70,8 @@
                     <!-- Screen Area -->
                     <div class="player-screen">
                         <!-- Video Display (YouTube Iframe) -->
-                        <div class="video-container hidden-audio-mode" id="videoContainer">
+                        <div class="video-container" id="videoContainer">
                             <div id="youtubePlayer"></div>
-                            <!-- Overlay loading state -->
-                            <div class="player-overlay" id="playerOverlay">
-                                <div class="spinner"></div>
-                                <p>Menyiapkan Aliran Video...</p>
-                            </div>
                         </div>
 
                         <!-- Audio Display (Rotating Cassette Tape & Visualizer) -->
@@ -103,6 +98,12 @@
                                 <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
                                 <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
                             </div>
+                        </div>
+
+                        <!-- Overlay loading/error state -->
+                        <div class="player-overlay" id="playerOverlay">
+                            <div class="spinner"></div>
+                            <p>Menyiapkan Aliran Video...</p>
                         </div>
                     </div>
 
