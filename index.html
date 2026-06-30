@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhibbin Gus Baha | Portal Audio & Video Pengajian Resmi</title>
+    <meta name="description" content="Aplikasi PWA resmi pemutar video dan audio pengajian KH Bahauddin Nursalim (Gus Baha) dari Official LP3IA.">
+    
+    <!-- PWA Settings -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0e3d24">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Gus Baha">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Background overlay elements -->
+    <div class="bg-pattern"></div>
+    <div class="glow-orb orb-primary"></div>
+    <div class="glow-orb orb-secondary"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <!-- Custom Golden Dome/Play Icon inside inline SVG -->
+                    <svg viewBox="0 0 100 100" class="svg-logo">
+                        <path d="M 15 70 C 15 30, 50 15, 50 15 C 50 15, 85 30, 85 70 Z" fill="none" stroke="#d4af37" stroke-width="6"/>
+                        <polygon points="40,40 65,52 40,64" fill="#d4af37"/>
+                        <path d="M 25 80 C 40 70, 45 70, 50 75 C 55 70, 60 70, 75 80" fill="none" stroke="#d4af37" stroke-width="5"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>Muhibbin <span>Gus Baha</span></h1>
+                    <p>Portal Pengajian Resmi KH Bahauddin Nursalim</p>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <button class="action-btn" id="addVideoBtn" title="Tambah Pengajian">
+                    <i data-lucide="plus-circle"></i>
+                    <span>Tambah Pengajian</span>
+                </button>
+                <button class="action-btn install-btn" id="installPwaBtn" style="display: none;" title="Instal Aplikasi">
+                    <i data-lucide="download"></i>
+                    <span>Instal App</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Layout -->
+        <div class="dashboard-grid">
+            <!-- Player Board Column -->
+            <section class="player-column">
+                <div class="player-card">
+                    <!-- Player Tabs (Mode Selector) -->
+                    <div class="player-tabs">
+                        <button class="tab-btn active" data-mode="video">
+                            <i data-lucide="video"></i> Mode Video
+                        </button>
+                        <button class="tab-btn" data-mode="audio">
+                            <i data-lucide="headphones"></i> Mode Suara Saja
+                        </button>
+                    </div>
+
+                    <!-- Screen Area -->
+                    <div class="player-screen">
+                        <!-- Video Display (YouTube Iframe) -->
+                        <div class="video-container" id="videoContainer">
+                            <div id="youtubePlayer"></div>
+                            <!-- Overlay loading state -->
+                            <div class="player-overlay" id="playerOverlay">
+                                <div class="spinner"></div>
+                                <p>Menyiapkan Aliran Video...</p>
+                            </div>
+                        </div>
+
+                        <!-- Audio Display (Rotating Cassette Tape & Visualizer) -->
+                        <div class="audio-container" id="audioContainer" style="display: none;">
+                            <div class="cassette-wrapper">
+                                <div class="cassette-tape">
+                                    <div class="cassette-body">
+                                        <div class="cassette-label">
+                                            <div class="label-title" id="audioLabelTitle">Pilih Pengajian</div>
+                                            <div class="label-sub">Official LP3IA</div>
+                                        </div>
+                                        <div class="cassette-wheels">
+                                            <div class="wheel left-wheel"><div class="spoke"></div></div>
+                                            <div class="wheel right-wheel"><div class="spoke"></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bouncing Audio Visualizer Lines -->
+                            <div class="visualizer-bars" id="visualizerBars">
+                                <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                                <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                                <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                                <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Track Info -->
+                    <div class="current-track-info">
+                        <h2 id="currentTrackTitle">Belum Ada Pengajian Diputar</h2>
+                        <p id="currentTrackChannel">Kanal: -</p>
+                    </div>
+
+                    <!-- Progress Slider -->
+                    <div class="progress-panel">
+                        <span class="time-label" id="currentTimeLabel">00:00</span>
+                        <input type="range" class="progress-bar" id="progressBar" min="0" max="100" value="0">
+                        <span class="time-label" id="totalTimeLabel">00:00</span>
+                    </div>
+
+                    <!-- Playback Controls -->
+                    <div class="controls-panel">
+                        <div class="secondary-controls">
+                            <button class="ctrl-btn" id="shuffleBtn" title="Acak">
+                                <i data-lucide="shuffle"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="primary-controls">
+                            <button class="ctrl-btn size-md" id="prevBtn" title="Sebelumnya">
+                                <i data-lucide="skip-back"></i>
+                            </button>
+                            <button class="ctrl-btn play-btn" id="playBtn" title="Putar">
+                                <i data-lucide="play" id="playIcon"></i>
+                            </button>
+                            <button class="ctrl-btn size-md" id="nextBtn" title="Berikutnya">
+                                <i data-lucide="skip-forward"></i>
+                            </button>
+                        </div>
+
+                        <div class="secondary-controls">
+                            <button class="ctrl-btn" id="loopBtn" title="Ulangi">
+                                <i data-lucide="repeat"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Volume Control Panel -->
+                    <div class="volume-panel">
+                        <button class="ctrl-btn" id="volumeMuteBtn" title="Bisukan">
+                            <i data-lucide="volume-2" id="volumeIcon"></i>
+                        </button>
+                        <input type="range" class="volume-bar" id="volumeBar" min="0" max="100" value="80">
+                        <span id="volumeValue">80%</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Playlist Column -->
+            <section class="playlist-column">
+                <div class="search-bar-wrapper">
+                    <i data-lucide="search" class="search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Cari kajian Gus Baha..." autocomplete="off">
+                    <button class="clear-btn" id="clearSearchBtn" style="display: none;">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+
+                <!-- Category filter tabs -->
+                <div class="category-tabs" id="categoryTabs">
+                    <button class="cat-btn active" data-category="all">Semua</button>
+                    <button class="cat-btn" data-category="Tafsir Jalalain">Tafsir Jalalain</button>
+                    <button class="cat-btn" data-category="Kitab Hikam">Kitab Hikam</button>
+                    <button class="cat-btn" data-category="Hikmah & Fiqih">Hikmah</button>
+                    <button class="cat-btn" data-category="Umum">Umum</button>
+                </div>
+
+                <!-- Scrollable Video List -->
+                <div class="playlist-card">
+                    <div class="playlist-header">
+                        <h3>Daftar Pengajian Resmi</h3>
+                        <span class="count-badge" id="videoCountBadge">0 Video</span>
+                    </div>
+                    <div class="playlist-items" id="playlistItems">
+                        <!-- Dynamic items will be injected here -->
+                        <div class="playlist-loading">
+                            <div class="spinner"></div>
+                            <p>Memuat daftar pengajian...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Add Video Modal -->
+        <div class="modal" id="addVideoModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i data-lucide="plus-circle"></i> Tambah Pengajian Kustom</h2>
+                    <button class="close-btn" id="closeModalBtn"><i data-lucide="x"></i></button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-tip">Masukkan tautan video YouTube resmi Gus Baha (misal dari kanal <strong>Official LP3IA</strong>) untuk menambahkannya ke pemutar lokal Anda.</p>
+                    <form id="addVideoForm" onsubmit="return false;">
+                        <div class="form-group">
+                            <label for="videoUrl">Tautan Video YouTube / Video ID</label>
+                            <input type="text" id="videoUrl" placeholder="https://www.youtube.com/watch?v=... atau ID video" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="videoTitle">Judul Pengajian</label>
+                            <input type="text" id="videoTitle" placeholder="Masukkan judul pengajian" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="videoCategory">Kategori</label>
+                            <select id="videoCategory" required>
+                                <option value="Tafsir Jalalain">Tafsir Jalalain</option>
+                                <option value="Kitab Hikam">Kitab Hikam</option>
+                                <option value="Hikmah & Fiqih">Hikmah & Fiqih</option>
+                                <option value="Umum">Umum</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="videoDescription">Deskripsi Ringkas</label>
+                            <textarea id="videoDescription" rows="3" placeholder="Masukkan ringkasan kajian..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Tambahkan Ke Playlist</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="app-footer-bar">
+            <p>&copy; 2026 Muhibbin Gus Baha. Dikembangkan menggunakan API YouTube resmi tanpa melanggar hak cipta.</p>
+            <div class="footer-links">
+                <a href="https://www.youtube.com/@officiallp3ia" target="_blank" rel="noopener">
+                    <i data-lucide="youtube"></i> Kanal Resmi LP3IA
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Application Logic Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

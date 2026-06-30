@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#05190e" />
+      <stop offset="100%" stop-color="#0e3d24" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe27a" />
+      <stop offset="50%" stop-color="#d4af37" />
+      <stop offset="100%" stop-color="#aa7c11" />
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" stroke="url(#goldGrad)" stroke-width="12" />
+  
+  <!-- Mosque Dome Contour and Play Symbol -->
+  <g transform="translate(106, 80)">
+    <!-- Dome Arc Outline -->
+    <path d="M 30 180 C 30 60, 150 20, 150 20 C 150 20, 270 60, 270 180 Z" fill="none" stroke="url(#goldGrad)" stroke-width="18" stroke-linecap="round" />
+    
+    <!-- Dome Crescent Pin -->
+    <line x1="150" y1="20" x2="150" y2="0" stroke="url(#goldGrad)" stroke-width="14" stroke-linecap="round" />
+    <circle cx="150" cy="-6" r="10" fill="url(#goldGrad)" />
+    
+    <!-- Rehal (Quran Stand) -->
+    <path d="M 60 270 C 100 240, 130 240, 150 255 C 170 240, 200 240, 240 270 L 220 295 C 190 275, 170 275, 150 285 C 130 275, 110 275, 80 295 Z" fill="url(#goldGrad)" />
+    
+    <!-- Large Golden Play Icon inside Dome -->
+    <polygon points="120,105 200,150 120,195" fill="url(#goldGrad)" />
+    
+    <!-- Audio Waveforms -->
+    <path d="M 75 150 Q 95 130 95 150 T 115 150" fill="none" stroke="url(#goldGrad)" stroke-width="10" stroke-linecap="round" opacity="0.7" />
+    <path d="M 225 150 Q 205 130 205 150 T 185 150" fill="none" stroke="url(#goldGrad)" stroke-width="10" stroke-linecap="round" opacity="0.7" />
+  </g>
+</svg>
