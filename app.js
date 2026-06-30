@@ -587,8 +587,49 @@ function setupPwa() {
   });
 }
 
+// 8. TEMA TERANG / GELAP
+function setupTheme() {
+  const themeToggleBtn = document.getElementById("themeToggleBtn");
+  const themeIcon = document.getElementById("themeIcon");
+  
+  if (!themeToggleBtn || !themeIcon) return;
+
+  // Baca tema dari local storage, default adalah dark
+  const currentTheme = localStorage.getItem("gusbaha_theme") || "dark";
+  
+  // Terapkan tema saat awal muat
+  if (currentTheme === "light") {
+    document.documentElement.setAttribute("data-theme", "light");
+    themeIcon.setAttribute("data-lucide", "moon");
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+    themeIcon.setAttribute("data-lucide", "sun");
+  }
+  
+  // Listener klik ganti tema
+  themeToggleBtn.addEventListener("click", () => {
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    if (isLight) {
+      document.documentElement.removeAttribute("data-theme");
+      themeIcon.setAttribute("data-lucide", "sun");
+      localStorage.setItem("gusbaha_theme", "dark");
+      showToast("Mode gelap aktif");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+      themeIcon.setAttribute("data-lucide", "moon");
+      localStorage.setItem("gusbaha_theme", "light");
+      showToast("Mode terang aktif");
+    }
+    
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  });
+}
+
 // INIT
 document.addEventListener("DOMContentLoaded", () => {
+  setupTheme();
   setupEventListeners();
   loadInitialData();
   setupPwa();
